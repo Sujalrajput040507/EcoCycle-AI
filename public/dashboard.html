@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dashboard — EcoCycle AI</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar-inner">
+        <a class="brand" href="/">
+          <span class="brand-icon">♻</span> EcoCycle AI
+        </a>
+        <div class="nav-links" id="nav-links"></div>
+      </div>
+    </nav>
+
+    <main class="container">
+      <div class="dashboard-header">
+        <div>
+          <h1 id="welcome-title">Dashboard</h1>
+          <p style="color:var(--text-secondary);font-size:0.9rem" id="welcome-sub"></p>
+        </div>
+        <div id="dash-actions"></div>
+      </div>
+
+      <section class="stats-grid" id="stats-grid">
+        <div class="card stat-card">
+          <div class="stat-value" id="stat-total">0</div>
+          <div class="stat-label">Total Listings</div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-value" id="stat-matched">0</div>
+          <div class="stat-label">Matched</div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-value" id="stat-collected">0</div>
+          <div class="stat-label">Collected</div>
+        </div>
+      </section>
+
+      <section class="card" id="listings-section">
+        <div class="section-header">
+          <h2>Recent Listings</h2>
+          <span class="badge badge-demo">Demo Data</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Material</th>
+                <th>Quantity</th>
+                <th>Location</th>
+                <th>Status</th>
+                <th>Created</th>
+              </tr>
+            </thead>
+            <tbody id="listings-body">
+              <tr>
+                <td colspan="6" class="empty-state">
+                  <div class="empty-icon">📦</div>
+                  <p>No listings yet. Submit your first PET waste listing.</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card" style="margin-top:20px" id="matches-section">
+        <div class="section-header">
+          <h2>My Matches</h2>
+        </div>
+        <div id="matches-container">
+          <div class="empty-state">
+            <div class="empty-icon">🔍</div>
+            <p>Submit a listing to see recycler matches.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      EcoCycle AI — GRAVITON 2026 Hackathon Project.
+      All recycler profiles are fictitious demo data.
+    </footer>
+    <script src="/js/app.js"></script>
+    <script src="/js/dashboard.js"></script>
+  </body>
+</html>
+

@@ -1,0 +1,41 @@
+[
+  {
+    "buyerId": "demo-buyer-greengrid",
+    "displayName": "GreenGrid PET Hub",
+    "isDemoData": true,
+    "dataLabel": "Fictitious sample recycler — not a real business or confirmed offer",
+    "acceptedMaterialCategories": ["PET plastic bottles"],
+    "minQuantityKg": 1,
+    "maxQuantityKg": 12,
+    "supportedAreas": ["Chandigarh"],
+    "acceptedConditions": ["clean"],
+    "demandLevel": "high",
+    "profileNotes": "Demo profile for small, clean PET lots collected in Chandigarh only."
+  },
+  {
+    "buyerId": "demo-buyer-tricity",
+    "displayName": "Tricity Bottle Recovery",
+    "isDemoData": true,
+    "dataLabel": "Fictitious sample recycler — not a real business or confirmed offer",
+    "acceptedMaterialCategories": ["PET plastic bottles"],
+    "minQuantityKg": 5,
+    "maxQuantityKg": 40,
+    "supportedAreas": ["Chandigarh", "Mohali"],
+    "acceptedConditions": ["clean", "mixed"],
+    "demandLevel": "medium",
+    "profileNotes": "Demo profile for medium PET lots in Chandigarh and Mohali. Accepts clean or mixed bottles."
+  },
+  {
+    "buyerId": "demo-buyer-punjab",
+    "displayName": "Punjab Plastics Reclaim",
+    "isDemoData": true,
+    "dataLabel": "Fictitious sample recycler — not a real business or confirmed offer",
+    "acceptedMaterialCategories": ["PET plastic bottles"],
+    "minQuantityKg": 15,
+    "maxQuantityKg": 150,
+    "supportedAreas": ["Panchkula", "Punjab"],
+    "acceptedConditions": ["clean", "mixed", "unknown"],
+    "demandLevel": "low",
+    "profileNotes": "Demo profile for larger PET lots. Service areas are Panchkula and Punjab, not Chandigarh city."
+  }
+]
