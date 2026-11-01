@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Submit Waste Listing — EcoCycle AI</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar-inner">
+        <a class="brand" href="./index.html">
+          <span class="brand-icon">♻</span> EcoCycle AI
+        </a>
+        <div class="nav-links" id="nav-links"></div>
+      </div>
+    </nav>
+
+    <main class="container">
+      <div class="page-header">
+        <h1>Submit PET Plastic Bottles</h1>
+        <p>List your industrial plastic waste stream for verified recycling and recovery.</p>
+      </div>
+
+      <div class="card">
+        <form id="listing-form" novalidate>
+          <div class="form-group">
+            <label>Photo of the plastic material</label>
+            <div class="upload-area" id="upload-area">
+              <div class="upload-icon">📷</div>
+              <p>Click to select or drag a photo here</p>
+              <p class="upload-hint">JPEG, PNG or WebP — max 5 MB</p>
+            </div>
+            <input id="image" name="image" type="file"
+              accept="image/jpeg,image/png,image/webp"
+              required style="display:none" />
+            <img id="image-preview" class="preview-img" alt="Preview" />
+
+            <!-- Future Image AI Feature Planning Banner (Problem 4) -->
+            <div id="ai-assist-banner" style="display:none;background:var(--mint-light);border:1px solid var(--green-300);border-radius:var(--radius-sm);padding:14px 16px;margin-top:14px">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;flex-wrap:wrap;gap:8px">
+                <div style="display:flex;align-items:center;gap:8px">
+                  <span style="font-size:1.1rem">🔍</span>
+                  <strong>AI Visual Material Estimation (Planned Architecture)</strong>
+                </div>
+                <span class="badge" style="background:#E2E8F0;color:#4A5568">Vision API Not Configured</span>
+              </div>
+              <p style="color:var(--text-secondary);font-size:0.85rem;margin:0 0 8px">
+                Automated visual resin recognition requires an active Vision AI key. In this build, please verify and confirm material specifications manually below.
+              </p>
+              <div style="font-size:0.78rem;color:var(--text-secondary);display:flex;gap:16px;flex-wrap:wrap">
+                <span>✓ Clarity Check: Pass</span>
+                <span>✓ Polymer Target: PET (#1)</span>
+                <span>⏳ Contamination Detection: Pending Vision Model</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="materialCategory">Material category</label>
+              <select id="materialCategory" name="materialCategory" required>
+                <option value="PET plastic bottles" selected>PET plastic bottles</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="quantity">Quantity (kg)</label>
+              <input id="quantity" name="quantity" type="number"
+                min="0.01" step="0.01" placeholder="e.g. 12.5" required />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="locationArea">General collection area</label>
+              <input id="locationArea" name="locationArea" type="text"
+                maxlength="80" placeholder="City or industrial area (e.g. Chandigarh, Mohali)" required />
+            </div>
+            <div class="form-group">
+              <label for="condition">Visible condition</label>
+              <select id="condition" name="condition" required>
+                <option value="">Choose one</option>
+                <option value="clean">Clean (Sorted post-industrial)</option>
+                <option value="mixed">Mixed (Needs sorting/washing)</option>
+                <option value="unknown">Unknown</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="description">Optional description</label>
+            <textarea id="description" name="description" rows="2"
+              maxlength="300" placeholder="Source details, packaging type, or contaminant details"></textarea>
+          </div>
+
+          <div id="form-error" class="alert alert-error" role="alert"></div>
+
+          <div class="form-actions">
+            <button class="btn btn-primary btn-lg" type="submit">Submit to Marketplace</button>
+            <a href="./dashboard.html" class="btn btn-secondary">Cancel</a>
+          </div>
+        </form>
+      </div>
+
+      <!-- EcoValue™ Market Benchmark Preview (Problem 5) -->
+      <section class="card" style="margin-top:24px;border-left:4px solid var(--green-500)">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px">
+          <h3 style="font-size:1rem;margin:0">📊 EcoValue™ Circular Pricing Benchmark (Planned Feature)</h3>
+          <span class="badge" style="background:#EDF2F7;color:#4A5568">Data Integration Pending</span>
+        </div>
+        <p style="font-size:0.85rem;color:var(--text-secondary);margin:0 0 10px">
+          EcoCycle AI does not display speculative, fabricated, or unverified market rates. Transparent B2B pricing benchmarks will be published once audited regional trade transactions are verified.
+        </p>
+        <div style="font-size:0.78rem;color:var(--text-secondary);display:flex;gap:20px;flex-wrap:wrap">
+          <span><strong>Target Index:</strong> B2B Industrial PET Flake &amp; Bales</span>
+          <span><strong>Methodology:</strong> Verified Regional Invoices (Audited)</span>
+          <span><strong>Integrity:</strong> Zero Algorithmic Price Inflation</span>
+        </div>
+      </section>
+
+      <!-- Result section -->
+      <div id="result" class="result-section">
+        <div class="card" style="margin-top:24px">
+          <div class="alert alert-success visible">
+            <strong>Listing saved!</strong>
+            <span id="result-message"></span>
+          </div>
+          <dl class="result-summary" id="result-details"></dl>
+        </div>
+
+        <div id="matches-area" style="margin-top:20px">
+          <div class="matches-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+            <h3>♻ Recycler Matches</h3>
+            <span id="matches-badge" class="badge">Marketplace Data</span>
+          </div>
+          <div id="matches"></div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      EcoCycle AI — GRAVITON 2026 Hackathon Project.
+    </footer>
+    <script src="./js/app.js"></script>
+    <script src="./js/submit.js"></script>
+  </body>
+</html>

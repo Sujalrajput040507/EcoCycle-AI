@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Create an account on EcoCycle AI to turn your PET plastic waste into verified value.">
+  <title>Create Account — EcoCycle AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="auth-body">
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="./index.html" class="nav-brand">
+        <span class="brand-icon">♻️</span>
+        <span class="brand-text">EcoCycle <span class="brand-highlight">AI</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="./index.html">← Return to Main App</a></li>
+        <li><a href="./login.html" class="nav-auth-link">Sign In</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="auth-main">
+    <div class="auth-card-container">
+      
+      <div class="auth-card">
+        <div class="auth-header">
+          <div class="auth-badge">🌿 Join EcoCycle AI</div>
+          <h1 class="auth-title">Create Account</h1>
+          <p class="auth-subtitle">Choose your account type to access specialized recycling marketplace tools.</p>
+        </div>
+
+        <!-- Role Selector Tabs (Feature 1) -->
+        <div class="role-selector-tabs" id="reg-role-tabs">
+          <button type="button" class="role-tab active" data-role="SELLER" id="tab-reg-seller">
+            <span class="role-tab-icon">📦</span>
+            <span class="role-tab-text">Register as Seller</span>
+          </button>
+          <button type="button" class="role-tab" data-role="BUYER" id="tab-reg-buyer">
+            <span class="role-tab-icon">🏢</span>
+            <span class="role-tab-text">Register as Buyer</span>
+          </button>
+        </div>
+
+        <div id="auth-alert" class="auth-alert hidden" role="alert" aria-live="polite"></div>
+
+        <form id="register-form" class="auth-form" novalidate>
+          <input type="hidden" id="selected-role" name="role" value="SELLER">
+
+          <div class="form-group">
+            <label for="reg-name" id="label-reg-name">Full Name or Business Name</label>
+            <input 
+              type="text" 
+              id="reg-name" 
+              name="name" 
+              class="form-input" 
+              placeholder="e.g. Alex Morgan or Green Cycle Hub"
+              required 
+              autocomplete="name"
+              aria-describedby="name-error"
+            >
+            <span class="field-error hidden" id="name-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="reg-email">Email Address</label>
+            <input 
+              type="email" 
+              id="reg-email" 
+              name="email" 
+              class="form-input" 
+              placeholder="e.g. alex@example.com"
+              required 
+              autocomplete="email"
+              aria-describedby="email-error"
+            >
+            <span class="field-error hidden" id="email-error"></span>
+          </div>
+
+          <!-- SELLER-SPECIFIC FIELDS -->
+          <div class="role-fields-container" id="seller-fields-box">
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="reg-seller-type">Seller Type</label>
+                <select id="reg-seller-type" class="form-input form-select">
+                  <option value="Individual">Individual Household</option>
+                  <option value="Scrap Dealer">Local Scrap Dealer / Kabadiwala</option>
+                  <option value="Collection Center">Aggregation / Collection Center</option>
+                  <option value="Commercial Business">Commercial Business / Office</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="reg-phone">Phone Number (Optional)</label>
+                <input type="tel" id="reg-phone" class="form-input" placeholder="+91 98765 43210">
+              </div>
+            </div>
+
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="reg-city">City</label>
+                <input type="text" id="reg-city" class="form-input" placeholder="e.g. Delhi">
+              </div>
+              <div class="form-group">
+                <label for="reg-state">State</label>
+                <input type="text" id="reg-state" class="form-input" placeholder="e.g. Delhi">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="reg-pickup-address">Approximate Pickup Location / Address</label>
+              <input type="text" id="reg-pickup-address" class="form-input" placeholder="e.g. Sector 18 Industrial Area">
+            </div>
+          </div>
+
+          <!-- BUYER-SPECIFIC FIELDS -->
+          <div class="role-fields-container hidden" id="buyer-fields-box">
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="reg-buyer-type">Buyer / Recycler Type</label>
+                <select id="reg-buyer-type" class="form-input form-select">
+                  <option value="Flake Processor">PET Flake / Pellet Processor</option>
+                  <option value="Authorized Recycler">Certified Reclaiming Facility</option>
+                  <option value="Secondary Aggregator">Regional Scrap Aggregator</option>
+                  <option value="Packaging Manufacturer">Packaging / rPET Manufacturer</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="reg-buyer-phone">Contact Number (Optional)</label>
+                <input type="tel" id="reg-buyer-phone" class="form-input" placeholder="+91 91234 56789">
+              </div>
+            </div>
+
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="reg-buyer-city">Operational City</label>
+                <input type="text" id="reg-buyer-city" class="form-input" placeholder="e.g. Noida">
+              </div>
+              <div class="form-group">
+                <label for="reg-buyer-state">State</label>
+                <input type="text" id="reg-buyer-state" class="form-input" placeholder="e.g. Uttar Pradesh">
+              </div>
+            </div>
+
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="reg-purchasing-capacity">Purchasing Capacity (kg/month)</label>
+                <input type="number" id="reg-purchasing-capacity" class="form-input" placeholder="e.g. 5000" min="10">
+              </div>
+              <div class="form-group">
+                <label for="reg-collection-radius">Collection Radius (km)</label>
+                <input type="number" id="reg-collection-radius" class="form-input" placeholder="e.g. 50" min="1">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="reg-preferred-materials">Preferred Recyclable Materials</label>
+              <input type="text" id="reg-preferred-materials" class="form-input" placeholder="e.g. Clear PET bottles, Green PET, Baled PET">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="label-with-action">
+              <label for="reg-password">Passphrase / Password</label>
+              <button type="button" class="btn-text-action" id="btn-toggle-reg-password" aria-label="Toggle password visibility">Show</button>
+            </div>
+            <input 
+              type="password" 
+              id="reg-password" 
+              name="password" 
+              class="form-input" 
+              placeholder="Minimum 15 characters (e.g. green-bottle-river-clean)"
+              required 
+              autocomplete="new-password"
+              aria-describedby="password-error password-hint"
+            >
+            <div class="password-policy-hint" id="password-hint">
+              <span class="policy-bullet">🔒</span> Minimum 15 characters. We encourage a memorable passphrase of multiple words.
+            </div>
+            <span class="field-error hidden" id="password-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="reg-confirm-password">Confirm Passphrase</label>
+            <input 
+              type="password" 
+              id="reg-confirm-password" 
+              name="confirmPassword" 
+              class="form-input" 
+              placeholder="Re-enter your passphrase exactly"
+              required 
+              autocomplete="new-password"
+              aria-describedby="confirm-password-error"
+            >
+            <span class="field-error hidden" id="confirm-password-error"></span>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary btn-block btn-lg" id="btn-register-submit">
+              <span class="btn-text">Create Account</span>
+              <span class="btn-spinner hidden" aria-hidden="true">⏳</span>
+            </button>
+          </div>
+        </form>
+
+        <div class="auth-divider">
+          <span>Already have an account?</span>
+        </div>
+
+        <div class="auth-alt-action">
+          <a href="./login.html" class="btn btn-secondary btn-block">Sign In to Existing Account</a>
+        </div>
+      </div>
+
+      <div class="auth-support-panel">
+        <div class="support-item">
+          <div class="support-icon">♻️</div>
+          <div>
+            <strong>100% Dedicated to PET Bottles</strong>
+            <p>Our platform focuses strictly on used PET plastic beverage bottles, keeping classification and buyer matching reliable.</p>
+          </div>
+        </div>
+        <div class="support-item">
+          <div class="support-icon">🔐</div>
+          <div>
+            <strong>Modern Passphrase Security</strong>
+            <p>We use bcrypt with a salt work factor of 10 and 15+ character passphrases instead of frustrating symbol rules.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    (function() {
+      const form = document.getElementById('register-form');
+      const nameInput = document.getElementById('reg-name');
+      const emailInput = document.getElementById('reg-email');
+      const passwordInput = document.getElementById('reg-password');
+      const confirmInput = document.getElementById('reg-confirm-password');
+      const toggleBtn = document.getElementById('btn-toggle-reg-password');
+      const submitBtn = document.getElementById('btn-register-submit');
+      const alertBox = document.getElementById('auth-alert');
+
+      const nameError = document.getElementById('name-error');
+      const emailError = document.getElementById('email-error');
+      const passwordError = document.getElementById('password-error');
+      const confirmError = document.getElementById('confirm-password-error');
+
+      // Role Tabs Toggle
+      const tabSeller = document.getElementById('tab-reg-seller');
+      const tabBuyer = document.getElementById('tab-reg-buyer');
+      const selectedRoleInput = document.getElementById('selected-role');
+      const sellerBox = document.getElementById('seller-fields-box');
+      const buyerBox = document.getElementById('buyer-fields-box');
+      const labelName = document.getElementById('label-reg-name');
+
+      if (tabSeller && tabBuyer) {
+        tabSeller.addEventListener('click', function() {
+          tabSeller.classList.add('active');
+          tabBuyer.classList.remove('active');
+          selectedRoleInput.value = 'SELLER';
+          sellerBox.classList.remove('hidden');
+          buyerBox.classList.add('hidden');
+          if (labelName) labelName.textContent = 'Full Name or Business Name';
+        });
+
+        tabBuyer.addEventListener('click', function() {
+          tabBuyer.classList.add('active');
+          tabSeller.classList.remove('active');
+          selectedRoleInput.value = 'BUYER';
+          buyerBox.classList.remove('hidden');
+          sellerBox.classList.add('hidden');
+          if (labelName) labelName.textContent = 'Company or Recycler Business Name';
+        });
+      }
+
+      // Toggle password visibility
+      toggleBtn.addEventListener('click', function() {
+        const isPass = passwordInput.type === 'password';
+        passwordInput.type = isPass ? 'text' : 'password';
+        confirmInput.type = isPass ? 'text' : 'password';
+        toggleBtn.textContent = isPass ? 'Hide' : 'Show';
+      });
+
+      function showAlert(msg, isSuccess) {
+        alertBox.textContent = msg;
+        alertBox.className = isSuccess ? 'auth-alert auth-alert-success' : 'auth-alert auth-alert-error';
+        alertBox.classList.remove('hidden');
+      }
+
+      function hideAlert() {
+        alertBox.classList.add('hidden');
+        alertBox.textContent = '';
+      }
+
+      function clearErrors() {
+        nameError.classList.add('hidden');
+        emailError.classList.add('hidden');
+        passwordError.classList.add('hidden');
+        confirmError.classList.add('hidden');
+      }
+
+      function setLoading(loading) {
+        submitBtn.disabled = loading;
+        const spinner = submitBtn.querySelector('.btn-spinner');
+        const text = submitBtn.querySelector('.btn-text');
+        if (loading) {
+          spinner.classList.remove('hidden');
+          text.textContent = 'Creating Account...';
+        } else {
+          spinner.classList.add('hidden');
+          text.textContent = 'Create Account';
+        }
+      }
+
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        hideAlert();
+        clearErrors();
+
+        const name = nameInput.value.trim();
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
+        const confirmPassword = confirmInput.value;
+
+        let hasError = false;
+
+        if (!name) {
+          nameError.textContent = 'Full name is required.';
+          nameError.classList.remove('hidden');
+          hasError = true;
+        }
+
+        if (!email) {
+          emailError.textContent = 'Email address is required.';
+          emailError.classList.remove('hidden');
+          hasError = true;
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          emailError.textContent = 'Please enter a valid email address.';
+          emailError.classList.remove('hidden');
+          hasError = true;
+        }
+
+        if (!password) {
+          passwordError.textContent = 'Password is required.';
+          passwordError.classList.remove('hidden');
+          hasError = true;
+        } else if (password.length < 15) {
+          passwordError.textContent = 'Passphrase must be at least 15 characters long.';
+          passwordError.classList.remove('hidden');
+          hasError = true;
+        } else if (password.length > 128) {
+          passwordError.textContent = 'Password cannot exceed 128 characters.';
+          passwordError.classList.remove('hidden');
+          hasError = true;
+        }
+
+        if (password && confirmPassword !== password) {
+          confirmError.textContent = 'Passphrase confirmation does not match.';
+          confirmError.classList.remove('hidden');
+          hasError = true;
+        }
+
+        if (hasError) return;
+
+        const role = selectedRoleInput ? selectedRoleInput.value : 'SELLER';
+        let payload = { name, email, password, role };
+
+        if (role === 'BUYER') {
+          payload.user_type = document.getElementById('reg-buyer-type')?.value || 'Authorized Recycler';
+          payload.phone = document.getElementById('reg-buyer-phone')?.value.trim() || null;
+          payload.city = document.getElementById('reg-buyer-city')?.value.trim() || null;
+          payload.state = document.getElementById('reg-buyer-state')?.value.trim() || null;
+          payload.purchasing_capacity = parseFloat(document.getElementById('reg-purchasing-capacity')?.value) || null;
+          payload.collection_radius = parseFloat(document.getElementById('reg-collection-radius')?.value) || null;
+          payload.preferred_materials = document.getElementById('reg-preferred-materials')?.value.trim() || null;
+        } else {
+          payload.user_type = document.getElementById('reg-seller-type')?.value || 'Individual';
+          payload.phone = document.getElementById('reg-phone')?.value.trim() || null;
+          payload.city = document.getElementById('reg-city')?.value.trim() || null;
+          payload.state = document.getElementById('reg-state')?.value.trim() || null;
+          payload.address = document.getElementById('reg-pickup-address')?.value.trim() || null;
+        }
+
+        setLoading(true);
+
+        try {
+          const res = await fetch('/api/auth/register', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-Requested-With': 'XMLHttpRequest'
+            },
+            credentials: 'same-origin',
+            body: JSON.stringify(payload)
+          });
+
+          const data = await res.json();
+
+          if (res.ok && data.success) {
+            showAlert('Account created successfully! Redirecting...', true);
+            setTimeout(function() {
+              window.location.href = '/';
+            }, 600);
+          } else {
+            const errorMsg = (data.error && data.error.message) || 'Registration failed. Please check your information.';
+            showAlert(errorMsg, false);
+          }
+        } catch (err) {
+          showAlert('Network error. Unable to reach server. Please try again.', false);
+        } finally {
+          setLoading(false);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
+

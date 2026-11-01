@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dashboard — EcoCycle AI</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar-inner">
+        <a class="brand" href="./index.html">
+          <span class="brand-icon">♻</span> EcoCycle AI
+        </a>
+        <div class="nav-links" id="nav-links"></div>
+      </div>
+    </nav>
+
+    <main class="container">
+      <!-- Seller / Buyer Mode Switch -->
+      <div class="card" style="display:flex;justify-content:space-between;align-items:center;padding:12px 20px;margin-bottom:24px;flex-wrap:wrap;gap:12px">
+        <div style="display:flex;align-items:center;gap:12px">
+          <span style="font-size:0.88rem;font-weight:600;color:var(--text-secondary)">Exchange Mode:</span>
+          <div style="display:flex;background:var(--bg);padding:3px;border-radius:var(--radius-sm);border:1px solid var(--border)">
+            <button id="btn-mode-seller" class="btn btn-sm" style="border-radius:4px;padding:6px 16px;font-weight:700">
+              📦 Seller Mode (Generator)
+            </button>
+            <button id="btn-mode-buyer" class="btn btn-sm btn-ghost" style="border-radius:4px;padding:6px 16px;font-weight:600;color:var(--text-secondary)">
+              🛒 Buyer Mode (Recycler)
+            </button>
+          </div>
+        </div>
+        <div id="account-capability-badge">
+          <span class="badge" style="background:var(--mint);color:var(--green-900);font-weight:600" id="current-role-badge">
+            Industrial Waste Generator
+          </span>
+        </div>
+      </div>
+
+      <!-- Global Dashboard Header -->
+      <div class="dashboard-header" style="margin-bottom:20px">
+        <div>
+          <h1 id="welcome-title">Dashboard</h1>
+          <p style="color:var(--text-secondary);font-size:0.9rem" id="welcome-sub"></p>
+        </div>
+        <div id="dash-actions"></div>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- SELLER VIEW (Industrial Waste Generator)                        -->
+      <!-- ============================================================== -->
+      <div id="seller-view">
+        <section class="stats-grid" id="stats-grid">
+          <div class="card stat-card">
+            <div class="stat-value" id="stat-total">0</div>
+            <div class="stat-label">Total Listings</div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-value" id="stat-matched">0</div>
+            <div class="stat-label">Matched</div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-value" id="stat-collected">0</div>
+            <div class="stat-label">Collected</div>
+          </div>
+        </section>
+
+        <!-- Seller's Listings Table -->
+        <section class="card" id="listings-section" style="margin-top:20px">
+          <div class="section-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+            <h2>My Waste Listings</h2>
+            <a href="./submit.html" class="btn btn-primary btn-sm">+ Submit New Waste</a>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Material</th>
+                  <th>Quantity</th>
+                  <th>Location</th>
+                  <th>Status</th>
+                  <th>Buyer Interest</th>
+                  <th>Created</th>
+                </tr>
+              </thead>
+              <tbody id="listings-body">
+                <tr>
+                  <td colspan="7" class="empty-state">
+                    <div class="empty-icon">📦</div>
+                    <p>No listings yet. Submit your first industrial PET waste listing.</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Real Recycler Matches Section -->
+        <section class="card" style="margin-top:24px" id="matches-section">
+          <div class="section-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+            <h2>Verified Recycler Matches &amp; Offers</h2>
+            <span id="market-data-badge" class="badge" style="background:#E2E8F0;color:#4A5568">Real Marketplace Data</span>
+          </div>
+          <div id="matches-container">
+            <div class="empty-state">
+              <div class="empty-icon">🔍</div>
+              <p>Submit a listing to view matching verified buyers.</p>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- BUYER VIEW (Recycler / Material Off-taker)                      -->
+      <!-- ============================================================== -->
+      <div id="buyer-view" style="display:none">
+        <!-- Purchasing Preferences Card -->
+        <section class="card" style="margin-bottom:24px">
+          <div class="section-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+            <div>
+              <h2 style="font-size:1.25rem;margin:0 0 4px">Purchasing Specifications &amp; Preferences</h2>
+              <p style="color:var(--text-secondary);font-size:0.85rem;margin:0">
+                Configure material demand parameters. Only verified buyers appear in automated matchmaking.
+              </p>
+            </div>
+            <span id="buyer-verification-badge" class="badge" style="background:#ED8936;color:#FFF">
+              Pending Verification
+            </span>
+          </div>
+
+          <div id="buyer-pref-alert" class="alert" style="display:none"></div>
+
+          <form id="buyer-pref-form" style="margin-top:16px">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="buyer-display-name">Facility / Business Name</label>
+                <input id="buyer-display-name" type="text" placeholder="e.g. Apex Polymer Recycling" required />
+              </div>
+              <div class="form-group">
+                <label for="buyer-demand-level">Procurement Urgency</label>
+                <select id="buyer-demand-level">
+                  <option value="high">High Demand (Immediate off-take)</option>
+                  <option value="medium" selected>Medium Demand (Regular monthly quota)</option>
+                  <option value="low">Low Demand (Spot purchasing)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="buyer-min-qty">Min Quantity (kg)</label>
+                <input id="buyer-min-qty" type="number" min="0" step="1" placeholder="e.g. 50" required />
+              </div>
+              <div class="form-group">
+                <label for="buyer-max-qty">Max Capacity (kg)</label>
+                <input id="buyer-max-qty" type="number" min="1" step="1" placeholder="e.g. 2000" required />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="buyer-areas">Preferred Operating Areas (comma-separated)</label>
+              <input id="buyer-areas" type="text" placeholder="e.g. Chandigarh, Mohali, Panchkula, Baddi" />
+              <small style="color:var(--text-secondary);font-size:0.78rem">Enter cities or industrial clusters you collect from.</small>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="margin-top:8px">
+              Save Purchasing Preferences
+            </button>
+          </form>
+        </section>
+
+        <!-- Marketplace Feed for Buyers -->
+        <section class="card">
+          <div class="section-header" style="margin-bottom:16px">
+            <h2>Available Industrial Waste Streams</h2>
+            <p style="color:var(--text-secondary);font-size:0.85rem">
+              Browse real waste listings submitted by industrial generators. Click "Express Interest" to connect.
+            </p>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Material</th>
+                  <th>Quantity</th>
+                  <th>Location</th>
+                  <th>Condition</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="buyer-listings-body">
+                <tr>
+                  <td colspan="7" class="empty-state">
+                    <div class="empty-icon">📦</div>
+                    <p>No active marketplace listings available right now.</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- EcoValue™ Market Benchmark Feature Preview                     -->
+      <!-- ============================================================== -->
+      <section class="card" style="margin-top:28px;border-left:4px solid var(--green-500)">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px">
+          <h3 style="font-size:1rem;margin:0">📊 EcoValue™ Circular Pricing Benchmark (Planned Feature)</h3>
+          <span class="badge" style="background:#EDF2F7;color:#4A5568">Data Integration Pending</span>
+        </div>
+        <p style="font-size:0.85rem;color:var(--text-secondary);margin:0 0 10px">
+          EcoCycle AI does not display speculative, fabricated, or unverified market rates. Transparent B2B pricing benchmarks will be published once audited regional trade transactions are verified.
+        </p>
+        <div style="font-size:0.78rem;color:var(--text-secondary);display:flex;gap:20px;flex-wrap:wrap">
+          <span><strong>Target Index:</strong> B2B Industrial PET Flake &amp; Bales</span>
+          <span><strong>Methodology:</strong> Verified Regional Invoices (Audited)</span>
+          <span><strong>Integrity:</strong> Zero Algorithmic Price Inflation</span>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      EcoCycle AI — GRAVITON 2026 Hackathon Project.
+    </footer>
+    <script src="./js/app.js"></script>
+    <script src="./js/dashboard.js"></script>
+  </body>
+<!-- Transaction Details Modal -->
+<div id="transaction-modal" class="modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;">
+  <div class="card" style="width:90%;max-width:600px;max-height:90%;overflow:auto;padding:20px;position:relative;">
+    <button id="close-transaction-modal" style="position:absolute;top:10px;right:10px;" class="btn btn-ghost">✖</button>
+    <h2 id="transaction-title">Transaction Details</h2>
+    <div id="transaction-details"></div>
+    <hr/>
+    <button id="open-chat-btn" class="btn btn-primary">Open Chat</button>
+    <button id="open-milestones-btn" class="btn btn-secondary" style="margin-left:8px;">EcoTrace Milestones</button>
+  </div>
+</div>
+
+<!-- Chat Modal -->
+<div id="chat-modal" class="modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;">
+  <div class="card" style="width:90%;max-width:500px;max-height:80%;overflow:auto;padding:20px;position:relative;">
+    <button id="close-chat-modal" style="position:absolute;top:10px;right:10px;" class="btn btn-ghost">✖</button>
+    <h3>Transaction Chat</h3>
+    <div id="chat-messages" style="height:300px;overflow-y:auto;border:1px solid var(--border);padding:8px;margin-bottom:12px;"></div>
+    <textarea id="chat-input" placeholder="Type a message..." style="width:100%;height:60px;margin-bottom:8px;"></textarea>
+    <button id="send-chat-btn" class="btn btn-primary">Send</button>
+  </div>
+</div>
+
+<!-- Milestones Modal -->
+<div id="milestones-modal" class="modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;">
+  <div class="card" style="width:90%;max-width:600px;max-height:90%;overflow:auto;padding:20px;position:relative;">
+    <button id="close-milestones-modal" style="position:absolute;top:10px;right:10px;" class="btn btn-ghost">✖</button>
+    <h3>EcoTrace Milestones</h3>
+    <div id="milestones-list" style="margin-bottom:12px;"></div>
+    <hr/>
+    <h4>Add Milestone</h4>
+    <select id="milestone-stage" style="width:100%;margin-bottom:8px;">
+      <option value="ORDER_CONFIRMED">Order Confirmed</option>
+      <option value="PICKUP_SCHEDULED">Pickup Scheduled</option>
+      <option value="DISPATCHED">Dispatched</option>
+      <option value="IN_TRANSIT">In Transit</option>
+      <option value="RECEIVED">Received</option>
+      <option value="QUALITY_INSPECTED">Quality Inspected</option>
+      <option value="PROCESSING">Processing</option>
+      <option value="RECOVERED_VERIFIED">Recovered Verified</option>
+      <option value="REUSED_VERIFIED">Reused Verified</option>
+    </select>
+    <input id="milestone-quantity" type="number" placeholder="Quantity (kg)" style="width:100%;margin-bottom:8px;"/>
+    <textarea id="milestone-notes" placeholder="Notes" style="width:100%;height:80px;margin-bottom:8px;"></textarea>
+    <input id="milestone-evidence" type="url" placeholder="Evidence URL (optional)" style="width:100%;margin-bottom:8px;"/>
+    <button id="add-milestone-btn" class="btn btn-primary">Add Milestone</button>
+  </div>
+</div>
+
+<!-- Existing footer or end of body -->
+</body>
+</html>
