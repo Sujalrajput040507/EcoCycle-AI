@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="EcoCycle AI — Public Traceability & Evidence Verification for PET Plastic Recovery">
+  <title>Batch Traceability — EcoProof Loop | EcoCycle AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="auth-body">
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="/" class="nav-brand">
+        <span class="brand-icon">♻️</span>
+        <span class="brand-text">EcoCycle <span class="brand-highlight">AI</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="/">← Main Platform</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="auth-main" style="padding: 2.5rem 1rem;">
+    <div class="auth-card-container" style="max-width: 680px;">
+
+      <!-- Loading State -->
+      <div id="trace-loading" class="auth-card text-center">
+        <div class="spinner" style="margin: 2rem auto; display: block;"></div>
+        <p style="color: var(--color-text-muted);">Retrieving verified batch traceability records…</p>
+      </div>
+
+      <!-- Error State -->
+      <div id="trace-error" class="auth-card hidden text-center">
+        <div style="font-size: 3rem; margin-bottom: 1rem;">🔍</div>
+        <h2 style="color: var(--color-error); margin-bottom: 0.5rem;">Batch Not Found</h2>
+        <p id="trace-error-msg" style="color: var(--color-text-muted); margin-bottom: 1.5rem;">The requested public batch code does not exist or has not been initialized.</p>
+        <a href="/" class="btn btn-secondary">Return to EcoCycle AI</a>
+      </div>
+
+      <!-- Traceability Card -->
+      <div id="trace-card" class="auth-card hidden">
+        <div class="auth-header" style="text-align: left; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
+            <div class="auth-badge">🔗 EcoProof Loop Traceability</div>
+            <span class="badge badge-success" id="public-batch-status">LISTED</span>
+          </div>
+          <h1 class="auth-title" id="public-batch-code" style="font-size: 1.85rem; font-family: monospace; letter-spacing: 0.05em; color: var(--color-primary);">ECO-PET-XXXX</h1>
+          <p class="auth-subtitle" id="public-batch-sub">Verified PET Plastic Beverage Bottle Recovery Batch</p>
+        </div>
+
+        <!-- Metrics Overview Grid -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.75rem; margin-bottom: 1.5rem;">
+          <div style="background: var(--color-surface-alt); padding: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
+            <div style="font-size: 0.75rem; color: var(--color-text-dim); text-transform: uppercase;">Material</div>
+            <strong style="color: var(--color-text); font-size: 0.95rem;" id="public-material">PET Plastic</strong>
+          </div>
+          <div style="background: var(--color-surface-alt); padding: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
+            <div style="font-size: 0.75rem; color: var(--color-text-dim); text-transform: uppercase;">Declared Weight</div>
+            <strong style="color: var(--color-text); font-size: 0.95rem;" id="public-quantity">0 kg</strong>
+          </div>
+          <div style="background: var(--color-surface-alt); padding: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
+            <div style="font-size: 0.75rem; color: var(--color-text-dim); text-transform: uppercase;">Weight Audit</div>
+            <strong style="color: var(--color-primary); font-size: 0.9rem;" id="public-weight-status">Within Tolerance</strong>
+          </div>
+        </div>
+
+        <!-- Evidence Completeness Gauge -->
+        <div style="background: rgba(52, 211, 153, 0.05); border: 1px solid rgba(52, 211, 153, 0.2); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <strong style="font-size: 0.95rem; color: var(--color-text);">Evidence Completeness Score</strong>
+            <span style="font-size: 1.25rem; font-weight: 800; color: var(--color-primary);" id="public-score-val">0 / 100</span>
+          </div>
+          <div style="width: 100%; height: 10px; background: var(--color-surface); border-radius: var(--radius-full); overflow: hidden; margin-bottom: 0.75rem;">
+            <div id="public-score-bar" style="height: 100%; width: 0%; background: var(--gradient-brand); transition: width 0.5s ease;"></div>
+          </div>
+          <p style="font-size: 0.78rem; color: var(--color-text-dim); line-height: 1.4; margin: 0;" id="public-disclaimer">
+            Evidence completeness measures the presence of supporting records. It does not independently prove that recycling or processing occurred.
+          </p>
+        </div>
+
+        <!-- Evidence Checklist -->
+        <div style="margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1rem; color: var(--color-text); margin-bottom: 0.75rem;">📋 Evidence Milestone Summary</h3>
+          <ul id="public-milestones-list" style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.5rem;"></ul>
+        </div>
+
+        <!-- Public Timeline -->
+        <div style="margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1rem; color: var(--color-text); margin-bottom: 0.75rem;">⏱️ Public Audit Timeline</h3>
+          <ol id="public-timeline-list" style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.65rem; border-left: 2px solid var(--color-border); margin-left: 0.5rem; padding-left: 1rem;"></ol>
+        </div>
+
+        <div style="border-top: 1px solid var(--color-border); padding-top: 1.25rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem;">
+          <span style="font-size: 0.8rem; color: var(--color-text-dim);">EcoCycle AI — Trust & Traceability Protocol</span>
+          <a href="/" class="btn btn-secondary btn-sm">Visit Platform</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    (function() {
+      const pathParts = window.location.pathname.split('/');
+      const batchCode = pathParts[pathParts.length - 1];
+
+      const loadingEl = document.getElementById('trace-loading');
+      const errorEl = document.getElementById('trace-error');
+      const errorMsgEl = document.getElementById('trace-error-msg');
+      const cardEl = document.getElementById('trace-card');
+
+      const batchCodeEl = document.getElementById('public-batch-code');
+      const statusEl = document.getElementById('public-batch-status');
+      const materialEl = document.getElementById('public-material');
+      const quantityEl = document.getElementById('public-quantity');
+      const weightStatusEl = document.getElementById('public-weight-status');
+      const scoreValEl = document.getElementById('public-score-val');
+      const scoreBarEl = document.getElementById('public-score-bar');
+      const milestonesList = document.getElementById('public-milestones-list');
+      const timelineList = document.getElementById('public-timeline-list');
+
+      function escapeHtml(str) {
+        if (!str) return '';
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+
+      async function loadBatchData() {
+        if (!batchCode) {
+          loadingEl.classList.add('hidden');
+          errorEl.classList.remove('hidden');
+          return;
+        }
+
+        try {
+          const res = await fetch(`/api/trace/${encodeURIComponent(batchCode)}`);
+          const data = await res.json();
+
+          if (!res.ok || !data.success) {
+            loadingEl.classList.add('hidden');
+            errorMsgEl.textContent = (data.error && data.error.message) || data.error || 'The requested batch could not be found.';
+            errorEl.classList.remove('hidden');
+            return;
+          }
+
+          const batch = data.batch;
+          loadingEl.classList.add('hidden');
+          cardEl.classList.remove('hidden');
+
+          batchCodeEl.textContent = batch.batchCode;
+          statusEl.textContent = batch.status;
+          materialEl.textContent = batch.materialType;
+          quantityEl.textContent = `${batch.declaredQuantityKg} kg`;
+          
+          if (batch.weightDiscrepancyFlagged) {
+            weightStatusEl.textContent = 'Flagged for Review';
+            weightStatusEl.style.color = 'var(--color-warning)';
+          } else {
+            weightStatusEl.textContent = 'Within Tolerance';
+            weightStatusEl.style.color = 'var(--color-primary)';
+          }
+
+          const score = batch.evidenceCompletenessScore || 0;
+          scoreValEl.textContent = `${score} / 100`;
+          scoreBarEl.style.width = `${score}%`;
+
+          // Milestones
+          if (Array.isArray(batch.evidenceSummary)) {
+            milestonesList.innerHTML = batch.evidenceSummary.map(m => {
+              let badgeColor = 'var(--color-border)';
+              let badgeText = m.status;
+              if (m.status === 'REVIEWED' || m.status === 'SUBMITTED') {
+                badgeColor = 'var(--color-primary)';
+              } else if (m.status === 'FLAGGED') {
+                badgeColor = 'var(--color-error)';
+              } else if (m.status === 'NOT_YET_DUE') {
+                badgeColor = 'var(--color-text-dim)';
+              }
+
+              return `
+                <li style="display: flex; justify-content: space-between; align-items: center; background: var(--color-surface-alt); padding: 0.65rem 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--color-border);">
+                  <span style="font-size: 0.88rem; color: var(--color-text);">${escapeHtml(m.label)}</span>
+                  <span style="font-size: 0.75rem; font-weight: 600; color: ${badgeColor}; border: 1px solid ${badgeColor}; padding: 0.15rem 0.5rem; border-radius: var(--radius-full);">
+                    ${escapeHtml(badgeText)} (${m.earned_weight}/${m.max_weight} pts)
+                  </span>
+                </li>
+              `;
+            }).join('');
+          }
+
+          // Public Timeline
+          if (Array.isArray(batch.timeline)) {
+            timelineList.innerHTML = batch.timeline.map(t => `
+              <li style="position: relative; margin-bottom: 0.5rem;">
+                <div style="font-size: 0.88rem; font-weight: 600; color: var(--color-text);">${escapeHtml(t.label)}</div>
+                <div style="font-size: 0.75rem; color: var(--color-text-dim);">${new Date(t.timestamp).toLocaleString()}</div>
+                ${t.explanation ? `<div style="font-size: 0.8rem; color: var(--color-text-muted); margin-top: 0.2rem;">${escapeHtml(t.explanation)}</div>` : ''}
+              </li>
+            `).join('');
+          }
+
+        } catch (err) {
+          loadingEl.classList.add('hidden');
+          errorMsgEl.textContent = 'Network error while retrieving traceability data.';
+          errorEl.classList.remove('hidden');
+        }
+      }
+
+      loadBatchData();
+    })();
+  </script>
+</body>
+</html>
+
