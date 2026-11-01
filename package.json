@@ -1,0 +1,30 @@
+{
+  "name": "ecocycle-ai",
+  "version": "1.0.0",
+  "description": "EcoCycle AI — Turn Waste Into Value. AI-assisted waste recovery and recycler-matching application.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node test-feature-price-intelligence.js && node test-feature-razorpay.js && node test-phase9.js && node test-phase10.js && node test-phase11.js"
+  },
+  "keywords": [
+    "recycling",
+    "waste",
+    "AI",
+    "matching",
+    "hackathon"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@google/genai": "^2.32.0",
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "express-session": "^1.19.0",
+    "multer": "^1.4.5-lts.1",
+    "qrcode": "^1.5.4",
+    "razorpay": "^2.9.8"
+  }
+}

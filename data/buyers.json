@@ -1,0 +1,46 @@
+[
+  {
+    "id": "buyer_pet_01",
+    "name": "EcoPellet Processors (Demo)",
+    "accepted_materials": ["PET Plastic"],
+    "min_kg": 10,
+    "max_kg": 500,
+    "supported_zones": ["North Sector", "Central City"],
+    "accepted_conditions": ["Clean", "Mixed/Labels on"],
+    "demand_level": "High",
+    "notes": "Specializes in clear PET bottle flakes for textile fiber production. Prefers bulk, clean batches."
+  },
+  {
+    "id": "buyer_pet_02",
+    "name": "GreenBottle Recyclers (Demo)",
+    "accepted_materials": ["PET Plastic"],
+    "min_kg": 5,
+    "max_kg": 100,
+    "supported_zones": ["South Hub", "Central City", "Industrial East"],
+    "accepted_conditions": ["Clean", "Mixed/Labels on", "Contaminated/Dirty"],
+    "demand_level": "Medium",
+    "notes": "Community-scale recycler accepting smaller batches. Handles mixed and dirty PET with on-site washing."
+  },
+  {
+    "id": "buyer_pet_03",
+    "name": "PET Granules Ltd (Demo)",
+    "accepted_materials": ["PET Plastic"],
+    "min_kg": 50,
+    "max_kg": 2000,
+    "supported_zones": ["Industrial East"],
+    "accepted_conditions": ["Clean"],
+    "demand_level": "High",
+    "notes": "Industrial-scale processor. Requires clean, sorted PET only. High volume preferred."
+  },
+  {
+    "id": "buyer_pet_04",
+    "name": "ClearCycle Solutions (Demo)",
+    "accepted_materials": ["PET Plastic"],
+    "min_kg": 2,
+    "max_kg": 50,
+    "supported_zones": ["North Sector", "South Hub", "Central City", "Industrial East"],
+    "accepted_conditions": ["Clean", "Mixed/Labels on"],
+    "demand_level": "Low",
+    "notes": "Pickup service covering all demo zones. Accepts small household quantities but demand is currently low."
+  }
+]

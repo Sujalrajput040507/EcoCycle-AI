@@ -1,0 +1,1885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="EcoCycle AI — Enterprise-grade PET plastic waste recovery, computer vision material analysis, price intelligence, deterministic buyer matching, and tamper-evident QR traceability.">
+  <title>EcoCycle AI — Turn Waste Into Value</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-brand" aria-label="EcoCycle AI Home">
+        <div class="brand-logo-icon">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-svg">
+            <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="2.2" stroke-dasharray="6 3" opacity="0.6"/>
+            <path d="M16 6V11L19 8.5L16 6Z" fill="currentColor"/>
+            <path d="M26 16H21L23.5 19L26 16Z" fill="currentColor"/>
+            <path d="M16 26V21L13 23.5L16 26Z" fill="currentColor"/>
+            <path d="M6 16H11L8.5 13L6 16Z" fill="currentColor"/>
+            <circle cx="16" cy="16" r="4.5" fill="#10b981"/>
+          </svg>
+        </div>
+        <span class="brand-text">EcoCycle <span class="brand-highlight">AI</span></span>
+      </a>
+
+      <!-- Desktop Links -->
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+        <li><a href="#submit-waste" class="nav-link">Analyze Waste</a></li>
+        <li><a href="#price-panel-anchor" class="nav-link" id="nav-price-link">Price Estimator</a></li>
+        <li><a href="#match-panel-anchor" class="nav-link" id="nav-match-link">Find Recyclers</a></li>
+        <li><a href="#payment-panel-anchor" class="nav-link" id="nav-pay-link">Facilitation Fee</a></li>
+        <li><a href="#ecoproof-anchor" class="nav-link" id="nav-ecoproof-link">EcoProof Loop</a></li>
+      </ul>
+
+      <!-- Auth Controls & Mobile Menu Toggle -->
+      <div class="nav-actions">
+        <div class="nav-auth" id="nav-auth">
+          <!-- Guest controls (unauthenticated) -->
+          <div class="auth-guest-controls" id="auth-guest-controls">
+            <a href="/login.html" class="btn btn-secondary btn-sm" id="btn-nav-login">Sign In</a>
+            <a href="/register.html" class="btn btn-primary btn-sm" id="btn-nav-register">Create Account</a>
+          </div>
+          <!-- User controls (authenticated) -->
+          <div class="auth-user-controls hidden" id="auth-user-controls">
+            <span class="badge badge-sm badge-role" id="nav-role-badge">SELLER</span>
+            <button type="button" class="btn btn-outline btn-sm" id="btn-nav-dashboard">Dashboard</button>
+            <button type="button" class="btn btn-outline btn-sm nav-icon-btn" id="btn-nav-chat" title="Messages">
+              <span>💬</span>
+              <span class="badge-count hidden" id="nav-chat-count">0</span>
+            </button>
+            <div class="notif-wrapper">
+              <button type="button" class="btn btn-outline btn-sm nav-icon-btn" id="btn-notif-toggle" title="Notifications">
+                <span>🔔</span>
+                <span class="badge-count hidden" id="nav-notif-count">0</span>
+              </button>
+              <div class="notifications-popover hidden" id="notifications-popover">
+                <div class="notif-header">
+                  <strong>Notifications</strong>
+                  <button type="button" class="btn-text-action" id="btn-mark-all-read">Mark all read</button>
+                </div>
+                <div class="notif-list" id="notif-list">
+                  <div class="notif-empty">No notifications yet</div>
+                </div>
+              </div>
+            </div>
+            <span class="user-greeting" id="nav-user-greeting">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <span id="nav-user-name">User</span>
+            </span>
+            <button type="button" class="btn btn-outline btn-sm" id="btn-nav-logout">Log Out</button>
+          </div>
+        </div>
+
+        <button type="button" class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span class="menu-bar"></span>
+          <span class="menu-bar"></span>
+          <span class="menu-bar"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div class="mobile-drawer" id="mobile-drawer">
+      <ul class="mobile-nav-links">
+        <li><a href="#how-it-works" class="mobile-nav-link">How It Works</a></li>
+        <li><a href="#submit-waste" class="mobile-nav-link">Analyze Waste</a></li>
+        <li><a href="#submit-waste" class="mobile-nav-link" id="mobile-nav-price">Price Estimator</a></li>
+        <li><a href="#submit-waste" class="mobile-nav-link" id="mobile-nav-match">Find Recyclers</a></li>
+        <li><a href="#payment-panel-anchor" class="mobile-nav-link" id="mobile-nav-pay">Facilitation Fee</a></li>
+        <li><a href="#submit-waste" class="mobile-nav-link" id="mobile-nav-ecoproof">EcoProof Loop</a></li>
+      </ul>
+      <div class="mobile-auth-section" id="mobile-auth-section">
+        <!-- Mirrors state dynamically -->
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== HERO SECTION ===== -->
+  <header class="hero" id="hero">
+    <div class="hero-backdrop">
+      <div class="ambient-glow ambient-glow-1"></div>
+      <div class="ambient-glow ambient-glow-2"></div>
+      <div class="ambient-grid-pattern"></div>
+    </div>
+
+    <div class="container hero-container">
+      <!-- Left Column: Brand Story -->
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          <span class="badge-text">AI-POWERED CIRCULAR ECONOMY</span>
+        </div>
+
+        <h1 class="hero-headline">
+          Your Plastic Waste <br>
+          <span class="gradient-text hero-highlight">Has a Future.</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Turn used PET bottles into measurable value with intelligent material analysis, location-aware pricing, recycler matching, and transparent recovery tracking.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#submit-waste" class="btn btn-primary btn-lg" id="hero-cta">
+            <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            <span>Start Recycling</span>
+          </a>
+          <a href="#how-it-works" class="btn btn-secondary btn-lg" id="hero-secondary-cta">
+            <span>Explore the Process</span>
+            <svg class="btn-svg-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+
+        <p class="hero-trust-line">
+          <svg class="hero-trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          <span>Smarter sorting. Better connections. Transparent recovery.</span>
+        </p>
+      </div>
+
+      <!-- Right Column: Signature Visual Composition -->
+      <div class="hero-visual">
+        <div class="composition-wrapper">
+          <!-- Central Glass Tech Bottle Card -->
+          <div class="central-asset-card">
+            <div class="asset-glow"></div>
+            <div class="bottle-visual-container">
+              <svg viewBox="0 0 320 400" fill="none" xmlns="http://www.w3.org/2000/svg" class="bottle-svg" aria-label="PET Bottle Recycling and Circular Economy Visual">
+                <defs>
+                  <!-- Glass body gradient -->
+                  <linearGradient id="heroBottleGlass" x1="60" y1="60" x2="260" y2="360" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#FFFFFF" stop-opacity="0.95"/>
+                    <stop offset="0.35" stop-color="#EBF8F2" stop-opacity="0.75"/>
+                    <stop offset="0.75" stop-color="#D1FAE5" stop-opacity="0.45"/>
+                    <stop offset="1" stop-color="#10B981" stop-opacity="0.22"/>
+                  </linearGradient>
+
+                  <!-- Recycled fluid / flakes stream -->
+                  <linearGradient id="heroRecycledStream" x1="160" y1="220" x2="160" y2="355" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#34D399" stop-opacity="0.65"/>
+                    <stop offset="1" stop-color="#059669" stop-opacity="0.85"/>
+                  </linearGradient>
+
+                  <!-- Leaf gradient -->
+                  <linearGradient id="heroLeafGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#A3E635"/>
+                    <stop offset="100%" stop-color="#10B981"/>
+                  </linearGradient>
+
+                  <!-- Soft emerald lighting blur -->
+                  <radialGradient id="heroBackdropGlow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#10B981" stop-opacity="0.25"/>
+                    <stop offset="70%" stop-color="#10B981" stop-opacity="0.05"/>
+                    <stop offset="100%" stop-color="#10B981" stop-opacity="0"/>
+                  </radialGradient>
+                </defs>
+
+                <!-- Soft Emerald Lighting Glow -->
+                <circle cx="160" cy="210" r="145" fill="url(#heroBackdropGlow)"/>
+
+                <!-- Circular Orbital Lines (Circular Economy) -->
+                <ellipse cx="160" cy="210" rx="142" ry="92" stroke="rgba(16, 185, 129, 0.22)" stroke-width="1.5" stroke-dasharray="7 6" transform="rotate(-18 160 210)"/>
+                <ellipse cx="160" cy="210" rx="118" ry="68" stroke="rgba(16, 185, 129, 0.4)" stroke-width="1.5" transform="rotate(-18 160 210)"/>
+
+                <!-- Circular Orbital Flow Direction Arrows -->
+                <g transform="rotate(-18 160 210)">
+                  <polygon points="278,206 286,210 278,214" fill="#10B981"/>
+                  <polygon points="42,214 34,210 42,206" fill="#10B981"/>
+                </g>
+
+                <!-- Subtle Leaf-Inspired Motifs on Orbital Ring -->
+                <!-- Top-Right Leaf -->
+                <path d="M260 145 C282 135 292 152 272 165 C255 170 250 156 260 145 Z" fill="url(#heroLeafGrad)" opacity="0.85"/>
+                <path d="M259 155 Q272 148 280 142" stroke="#FFFFFF" stroke-width="1" opacity="0.6"/>
+
+                <!-- Bottom-Left Leaf -->
+                <path d="M62 255 C42 268 34 250 52 238 C70 230 74 245 62 255 Z" fill="url(#heroLeafGrad)" opacity="0.85"/>
+                <path d="M53 246 Q64 252 70 258" stroke="#FFFFFF" stroke-width="1" opacity="0.6"/>
+
+                <!-- Translucent PET Bottle -->
+                <!-- Cap Closure & Ring -->
+                <rect x="144" y="44" width="32" height="18" rx="4" fill="#0B2B20" stroke="#10B981" stroke-width="1.5"/>
+                <line x1="147" y1="49" x2="147" y2="57" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+                <line x1="152" y1="49" x2="152" y2="57" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+                <line x1="160" y1="49" x2="160" y2="57" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+                <line x1="168" y1="49" x2="168" y2="57" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+                <line x1="173" y1="49" x2="173" y2="57" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+                <rect x="142" y="62" width="36" height="5" rx="2" fill="#123D2D" stroke="rgba(16,185,129,0.5)" stroke-width="1"/>
+
+                <!-- Bottle Neck -->
+                <path d="M149 67 H171 V104 H149 V67 Z" fill="url(#heroBottleGlass)" stroke="rgba(16, 185, 129, 0.45)" stroke-width="1.5"/>
+
+                <!-- Bottle Shoulders, Ribbed Profile & Wall Geometry -->
+                <path d="M149 104 C149 104 116 136 112 175 V325 C112 342 124 354 138 354 H182 C196 354 208 342 208 325 V175 C204 136 171 104 171 104 H149 Z" 
+                      fill="url(#heroBottleGlass)" 
+                      stroke="rgba(16, 185, 129, 0.55)" 
+                      stroke-width="2"/>
+
+                <!-- Horizontal PET Reinforcement Ribs -->
+                <path d="M114 208 C135 214 185 214 206 208" stroke="rgba(16, 185, 129, 0.35)" stroke-width="1.5" fill="none"/>
+                <path d="M114 246 C135 252 185 252 206 246" stroke="rgba(16, 185, 129, 0.35)" stroke-width="1.5" fill="none"/>
+
+                <!-- Inner Recycled Granule / Polymer Stream -->
+                <path d="M115 250 C130 242 190 256 205 248 V324 C205 338 194 350 180 350 H140 C126 350 115 338 115 324 V250 Z" 
+                      fill="url(#heroRecycledStream)"/>
+
+                <!-- Subtle Push-Up Petalloid Base Indentation -->
+                <path d="M145 354 C152 346 168 346 175 354" stroke="#047857" stroke-width="2" fill="none"/>
+
+                <!-- Specular Highlight Reflections -->
+                <path d="M120 178 V318" stroke="rgba(255, 255, 255, 0.75)" stroke-width="2" stroke-linecap="round"/>
+                <path d="M125 186 V235" stroke="rgba(255, 255, 255, 0.45)" stroke-width="1.5" stroke-linecap="round"/>
+
+                <!-- Circular Resin Identification Emblem (#1 PET) -->
+                <circle cx="160" cy="172" r="23" fill="#FFFFFF" filter="drop-shadow(0 3px 8px rgba(11,43,32,0.12))"/>
+                <circle cx="160" cy="172" r="23" stroke="#DDE6DF" stroke-width="1"/>
+                <!-- 3-Arrow Recycling Cycle Loop -->
+                <path d="M160 156 L165 161 H162 C162 167 157 172 151 172 V169.5 C155 169.5 159 166 159 161 H155 L160 156 Z" fill="#059669"/>
+                <path d="M160 188 L155 183 H158 C158 177 163 172 169 172 V174.5 C165 174.5 161 178 161 183 H165 L160 188 Z" fill="#10B981"/>
+                <text x="160" y="175" font-size="8.5" font-weight="800" fill="#0B2B20" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif">#1 PET</text>
+              </svg>
+            </div>
+
+            <!-- Floating Data Panel 1: AI Material Analysis -->
+            <div class="telemetry-card hero-panel-top telemetry-card-1">
+              <div class="telemetry-icon-box bg-emerald">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72Z"/><path d="m14 7 3 3"/></svg>
+              </div>
+              <div class="telemetry-content">
+                <div class="telemetry-label">AI MATERIAL ANALYSIS</div>
+                <div class="telemetry-val">PET plastic</div>
+              </div>
+            </div>
+
+            <!-- Floating Data Panel 2: Estimated Material Value -->
+            <div class="telemetry-card hero-panel-mid telemetry-card-2">
+              <div class="telemetry-icon-box bg-forest">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </div>
+              <div class="telemetry-content">
+                <div class="telemetry-label">ESTIMATED MATERIAL VALUE</div>
+                <div class="telemetry-val">₹14.50 – ₹18.00 <span class="telemetry-sub">/ kg</span></div>
+                <div class="telemetry-caption">Illustrative Regional Benchmark</div>
+              </div>
+            </div>
+
+            <!-- Floating Data Panel 3: EcoProof Traceability -->
+            <div class="telemetry-card hero-panel-bot telemetry-card-3">
+              <div class="telemetry-icon-box bg-lime">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0B2B20" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+              </div>
+              <div class="telemetry-content">
+                <div class="telemetry-label">ECOPROOF TRACEABILITY</div>
+                <div class="telemetry-val">Evidence-based recovery records</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== TRUST METRICS TICKER ===== -->
+  <section class="trust-ribbon">
+    <div class="container trust-ribbon-grid">
+      <div class="trust-metric-item">
+        <span class="trust-metric-number">10,000 kg</span>
+        <span class="trust-metric-label">Batch Scalability Ceiling</span>
+      </div>
+      <div class="trust-metric-item">
+        <span class="trust-metric-number">5 Milestones</span>
+        <span class="trust-metric-label">Verifiable Physical Chain</span>
+      </div>
+      <div class="trust-metric-item">
+        <span class="trust-metric-number">10% Threshold</span>
+        <span class="trust-metric-label">Automatic Variance Detection</span>
+      </div>
+      <div class="trust-metric-item">
+        <span class="trust-metric-number">100% Deterministic</span>
+        <span class="trust-metric-label">Rules-Based Recycler Scoring</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOW IT WORKS SECTION ===== -->
+  <section class="section section-feature-dark" id="how-it-works">
+    <div class="container">
+      <div class="section-header text-center">
+        <div class="section-tag section-tag-dark">End-to-End Workflow</div>
+        <h2 class="section-title text-white">From Scrap Bottle to Circular Value</h2>
+        <p class="section-subtitle text-light">
+          A transparent, four-phase lifecycle ensuring waste is accurately inspected, honestly priced, efficiently matched, and cryptographically verified.
+        </p>
+      </div>
+
+      <div class="steps-grid steps-grid-connected">
+        <div class="step-card step-card-dark">
+          <div class="step-card-glow"></div>
+          <div class="step-card-header">
+            <div class="step-badge-num">01</div>
+            <div class="step-icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="step-svg"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            </div>
+          </div>
+          <h3 class="step-title">01 — Analyze PET Waste</h3>
+          <p class="step-desc">
+            Computer vision analyzes your photo to confirm PET resin composition and surface contamination, with user verification before any listing is confirmed.
+          </p>
+          <div class="step-footer-tag">Computer Vision + Fallback</div>
+        </div>
+
+        <div class="step-card step-card-dark">
+          <div class="step-card-glow"></div>
+          <div class="step-card-header">
+            <div class="step-badge-num">02</div>
+            <div class="step-icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="step-svg"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+          </div>
+          <h3 class="step-title">02 — Estimate Material Value</h3>
+          <p class="step-desc">
+            Evaluate regional scrap market rates based on real municipality trade benchmarks, material condition, and batch volume before matching.
+          </p>
+          <div class="step-footer-tag">Market Scrap Benchmarks</div>
+        </div>
+
+        <div class="step-card step-card-dark">
+          <div class="step-card-glow"></div>
+          <div class="step-card-header">
+            <div class="step-badge-num">03</div>
+            <div class="step-icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="step-svg"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+          </div>
+          <h3 class="step-title">03 — Match with Recyclers</h3>
+          <p class="step-desc">
+            Direct matching against verified recycler profiles using transparent, disclosed compatibility rules — never arbitrary or hallucinated AI scores.
+          </p>
+          <div class="step-footer-tag">Multi-Factor Compatibility</div>
+        </div>
+
+        <div class="step-card step-card-dark">
+          <div class="step-card-glow"></div>
+          <div class="step-card-header">
+            <div class="step-badge-num">04</div>
+            <div class="step-icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="step-svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+          </div>
+          <h3 class="step-title">04 — Track Recovery with EcoProof</h3>
+          <p class="step-desc">
+            Track pickup to plant with weigh-in variance checks, cryptographic SHA-256 audit logs, and public QR codes that safely protect personal coordinates.
+          </p>
+          <div class="step-footer-tag">Tamper-Evident QR Ledger</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DASHBOARD SECTIONS ===== -->
+  <div id="dashboard-anchor"></div>
+
+  <!-- SELLER DASHBOARD -->
+  <section class="section section-dashboard hidden" id="seller-dashboard-panel">
+    <div class="container">
+      <div class="dashboard-header-bar">
+        <div>
+          <div class="badge badge-role-seller">Seller Operations Center</div>
+          <h2 class="dashboard-title">My PET Waste Recovery Dashboard</h2>
+          <p class="dashboard-subtitle">Monitor registered batches, track incoming recycler offers, and optimize batch value.</p>
+        </div>
+        <div class="dashboard-actions">
+          <a href="#submit-waste" class="btn btn-primary" id="seller-btn-create-listing">
+            <span class="btn-icon">➕</span>
+            New PET Listing
+          </a>
+          <button type="button" class="btn btn-secondary" id="seller-btn-open-chat">
+            <span class="btn-icon">💬</span>
+            Recycler Messages
+          </button>
+        </div>
+      </div>
+
+      <!-- Seller 4 KPI Cards -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap bg-forest">📦</div>
+          <div class="kpi-content">
+            <span class="kpi-label">Total Listings</span>
+            <span class="kpi-num" id="seller-stat-total-listings">0</span>
+            <span class="kpi-sub">Lifetime batches</span>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap bg-emerald">🌱</div>
+          <div class="kpi-content">
+            <span class="kpi-label">Active Batches</span>
+            <span class="kpi-num" id="seller-stat-active-listings">0</span>
+            <span class="kpi-sub">Available for matching</span>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap bg-lime">💬</div>
+          <div class="kpi-content">
+            <span class="kpi-label">Incoming Offers</span>
+            <span class="kpi-num" id="seller-stat-incoming-offers">0</span>
+            <span class="kpi-sub">Pending buyer negotiations</span>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap bg-forest">💰</div>
+          <div class="kpi-content">
+            <span class="kpi-label">Est. Batch Value</span>
+            <span class="kpi-num" id="seller-stat-total-value">₹0.00</span>
+            <span class="kpi-sub">Aggregate benchmark</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Split View: My Listings & Pending Offers -->
+      <div class="dashboard-split-grid">
+        <!-- Left: My Listings -->
+        <div class="dashboard-card">
+          <div class="dashboard-card-header">
+            <h3>My PET Batches</h3>
+            <span class="dashboard-card-sub" id="seller-listings-count">0 items</span>
+          </div>
+          <div class="dashboard-list" id="seller-listings-container">
+            <div class="dashboard-empty-state">
+              <span class="empty-icon">📦</span>
+              <p>No listings created yet.</p>
+              <a href="#submit-waste" class="btn btn-outline btn-sm">Create First Listing</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Incoming Recycler Offers -->
+        <div class="dashboard-card">
+          <div class="dashboard-card-header">
+            <h3>Incoming Recycler Offers</h3>
+            <span class="dashboard-card-sub" id="seller-offers-count">0 negotiations</span>
+          </div>
+          <div class="dashboard-list" id="seller-offers-container">
+            <div class="dashboard-empty-state">
+              <span class="empty-icon">🤝</span>
+              <p>No buyer offers received yet. Matched recyclers will submit formal proposals here.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUYER DASHBOARD -->
+  <section class="section section-dashboard hidden" id="buyer-dashboard-panel">
+    <div class="container">
+      <div class="dashboard-header-bar">
+        <div>
+          <div class="badge badge-role-buyer">Recycler Procurement Hub</div>
+          <h2 class="dashboard-title">PET Feedstock Procurement Dashboard</h2>
+          <p class="dashboard-subtitle">Discover available scrap batches, submit structured counteroffers, and manage logistics.</p>
+        </div>
+        <div class="dashboard-actions">
+          <button type="button" class="btn btn-secondary" id="buyer-btn-open-chat">
+            <span class="btn-icon">💬</span>
+            Seller Inquiries
+          </button>
+        </div>
+      </div>
+
+      <!-- Buyer 4 KPI Cards -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap bg-forest">🔍</div>
+          <div class="kpi-content">
+            <span class="kpi-label">Available Feedstock</span>
+            <span class="kpi-num" id="buyer-stat-available-batches">0</span>
+            <span class="kpi-sub">Batches on marketplace</span>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap bg-emerald">💬</div>
+          <div class="kpi-content">
+            <span class="kpi-label">Active Negotiations</span>
+            <span class="kpi-num" id="buyer-stat-active-negotiations">0</span>
+            <span class="kpi-sub">Offers pending terms</span>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap bg-lime">🏭</div>
+          <div class="kpi-content">
+            <span class="kpi-label">Batches Procured</span>
+            <span class="kpi-num" id="buyer-stat-purchased-batches">0</span>
+            <span class="kpi-sub">Completed transactions</span>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon-wrap bg-forest">💰</div>
+          <div class="kpi-content">
+            <span class="kpi-label">Committed Spend</span>
+            <span class="kpi-num" id="buyer-stat-total-spend">₹0.00</span>
+            <span class="kpi-sub">Total settled volume</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Marketplace Listings Explorer -->
+      <div class="dashboard-card" style="margin-bottom: 2rem;">
+        <div class="dashboard-card-header flex-header">
+          <div>
+            <h3>Available PET Scrap Feedstock</h3>
+            <p class="dashboard-card-sub">Browse verified post-consumer batches ready for collection and recycling.</p>
+          </div>
+          <div class="filter-controls">
+            <input type="text" id="buyer-market-search" class="form-input form-input-sm" placeholder="Filter by city, zone, or condition...">
+          </div>
+        </div>
+        <div class="feedstock-grid" id="buyer-feedstock-container">
+          <div class="dashboard-empty-state">
+            <span class="empty-icon">🔍</span>
+            <p>Loading available marketplace listings...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- My Active Negotiations -->
+      <div class="dashboard-card">
+        <div class="dashboard-card-header">
+          <h3>My Active Negotiations & Sent Offers</h3>
+          <span class="dashboard-card-sub" id="buyer-negotiations-count">0 items</span>
+        </div>
+        <div class="dashboard-list" id="buyer-negotiations-container">
+          <div class="dashboard-empty-state">
+            <span class="empty-icon">💬</span>
+            <p>You have not initiated any negotiations yet. Browse feedstock above to submit an offer.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MAIN PLATFORM WORKSPACE ===== -->
+  <section class="section section-workspace" id="submit-waste">
+    <div class="container">
+      <div class="section-header text-center">
+        <div class="section-tag">Interactive Workspace</div>
+        <h2 class="section-title">PET Waste Recovery Hub</h2>
+        <p class="section-subtitle">Inspect your material, pin location, configure listing, and trace recovery.</p>
+      </div>
+
+      <!-- Account Listing Callout -->
+      <div class="listing-auth-callout listing-auth-callout-guest" id="listing-auth-callout">
+        <div class="callout-icon-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        </div>
+        <span id="listing-auth-text">You are listing in <strong>Demo Mode</strong>. <a href="/login.html">Sign in</a> to save private listings to your personal account.</span>
+      </div>
+
+      <!-- Main Form Card -->
+      <div class="workspace-card" id="form-card-wrapper">
+        <form class="submission-form" id="waste-form">
+          <div class="form-grid-layout">
+
+            <!-- Left Column: Image Upload & Preview -->
+            <div class="form-col-upload">
+              <label class="form-label" for="waste-image">
+                <span>Waste Photo</span>
+                <span class="label-badge">Required</span>
+              </label>
+
+              <div class="upload-area" id="upload-area" tabindex="0" role="button" aria-label="Upload PET plastic waste photo">
+                <div class="upload-placeholder" id="upload-placeholder">
+                  <div class="upload-icon-circle">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="upload-svg"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                  </div>
+                  <p class="upload-prompt">Drag & drop photo or <span class="highlight-action">browse files</span></p>
+                  <p class="upload-hint">Clear PET beverage bottles — JPG, PNG, WebP (max 5 MB)</p>
+                </div>
+                <img class="upload-preview" id="upload-preview" alt="Uploaded waste image preview">
+                <input type="file" id="waste-image" name="waste-image" accept="image/jpeg,image/png,image/webp" hidden>
+              </div>
+            </div>
+
+            <!-- Right Column: Quantity, Location & Condition -->
+            <div class="form-col-details">
+              <!-- Quantity Input -->
+              <div class="form-group">
+                <label class="form-label" for="quantity">
+                  <span>Batch Quantity (kg)</span>
+                  <span class="form-hint-inline">Max 10,000 kg demo limit</span>
+                </label>
+                <div class="input-with-affix">
+                  <input 
+                    type="number" 
+                    id="quantity" 
+                    name="quantity" 
+                    class="form-input" 
+                    placeholder="e.g. 25.0" 
+                    min="0.1" 
+                    max="10000"
+                    step="0.1" 
+                    required
+                  >
+                  <span class="input-suffix">kg</span>
+                </div>
+              </div>
+
+              <!-- Locality / Google Maps Location Picker -->
+              <div class="form-group location-picker-group" id="location-picker-group">
+                <div class="location-header">
+                  <label class="form-label" for="place-search">Pickup Location</label>
+                  <span class="location-badge" id="map-status-badge">📍 Google Maps Platform</span>
+                </div>
+
+                <!-- Maps Fallback Banner -->
+                <div class="map-fallback-banner hidden" id="map-fallback-banner">
+                  <div class="banner-icon">ℹ️</div>
+                  <div class="banner-content">
+                    <strong>Interactive Map Offline</strong>
+                    <p id="map-fallback-msg">Google Maps is not configured. Please select your matching zone manually below, or enter your address.</p>
+                  </div>
+                </div>
+
+                <!-- Search & Geolocation Controls -->
+                <div class="location-search-bar" id="location-search-bar">
+                  <div class="search-input-wrapper">
+                    <svg class="search-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <input 
+                      type="text" 
+                      id="place-search" 
+                      class="form-input search-input" 
+                      placeholder="Search neighborhood, city, or address..."
+                      autocomplete="off"
+                    >
+                  </div>
+                  <button type="button" class="btn btn-secondary btn-icon-only" id="btn-locate-me" title="Use my current location">
+                    <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg>
+                    <span class="btn-text-responsive">My Location</span>
+                  </button>
+                </div>
+
+                <!-- Interactive Map Canvas -->
+                <div class="map-container-wrapper" id="map-container-wrapper">
+                  <div class="map-loading-overlay" id="map-loading-overlay">
+                    <span class="spinner" id="map-spinner"></span>
+                    <p id="map-loading-text">Loading Google Maps…</p>
+                  </div>
+                  <div id="location-map" class="location-map"></div>
+                  <div class="map-hint">Click the map or drag the pin to stage pickup coordinates.</div>
+                </div>
+
+                <!-- Location Confirmation Controls -->
+                <div class="location-actions">
+                  <button type="button" class="btn btn-secondary btn-sm" id="btn-confirm-location" disabled>
+                    <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span id="btn-confirm-location-text">Confirm Pinned Location</span>
+                  </button>
+                  <button type="button" class="btn btn-secondary btn-sm hidden" id="btn-retry-map">
+                    <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+                    Retry Loading Map
+                  </button>
+                  <div class="location-error-msg hidden" id="location-error-msg"></div>
+                </div>
+
+                <!-- Selected Location Summary Card -->
+                <div class="selected-location-card hidden" id="selected-location-card">
+                  <div class="loc-summary-header">
+                    <span class="loc-pin">✓ Confirmed Location:</span>
+                    <span class="loc-coords" id="loc-coords-display"></span>
+                  </div>
+                  <div class="loc-address" id="loc-address-display">—</div>
+                </div>
+
+                <!-- Recycler Matching Zone Selection -->
+                <div class="demo-zone-wrapper" id="demo-zone-wrapper">
+                  <label class="form-sublabel" for="locality">
+                    Matching Zone
+                    <span class="form-hint-inline">(required for deterministic buyer matching)</span>
+                  </label>
+                  <select id="locality" name="locality" class="form-input form-select" required>
+                    <option value="" disabled selected>Select matching zone</option>
+                    <option value="Central City">Central City</option>
+                    <option value="North Sector">North Sector</option>
+                    <option value="South Hub">South Hub</option>
+                    <option value="Industrial East">Industrial East</option>
+                  </select>
+                  <span class="form-hint" id="zone-hint">Automatically suggested from your pinned location, or choose manually.</span>
+                </div>
+
+                <input type="hidden" id="loc-lat" name="latitude">
+                <input type="hidden" id="loc-lng" name="longitude">
+                <input type="hidden" id="loc-address" name="formatted_address">
+                <input type="hidden" id="loc-place-id" name="place_id">
+              </div>
+
+              <!-- Condition Selector -->
+              <div class="form-group">
+                <label class="form-label" for="condition">Material Condition</label>
+                <select id="condition" name="condition" class="form-input form-select" required>
+                  <option value="" disabled selected>Select visible condition</option>
+                  <option value="Clean">Clean — sorted, rinsed, labels removed</option>
+                  <option value="Mixed/Labels on">Mixed / Labels on — unsorted or labels present</option>
+                  <option value="Contaminated/Dirty">Contaminated / Dirty — unwashed, food residue</option>
+                </select>
+              </div>
+
+              <!-- Submit Button -->
+              <button type="submit" class="btn btn-primary btn-lg btn-full" id="submit-btn">
+                <span class="btn-icon" id="submit-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                </span>
+                <span id="submit-text">Analyze My Waste</span>
+                <span class="spinner" id="submit-spinner"></span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- ===== ANALYSIS REVIEW PANEL ===== -->
+      <div class="review-panel hidden" id="review-panel">
+        <div class="panel-header">
+          <div>
+            <h3 class="panel-title">AI Inspection Results</h3>
+            <p class="panel-subtitle">Review detected material characteristics before creating your recovery listing.</p>
+          </div>
+          <div class="review-badge" id="review-badge">Demo Fallback</div>
+        </div>
+
+        <p class="review-note" id="review-note"></p>
+
+        <!-- 5-CARD RICH AI CLASSIFICATION DASHBOARD -->
+        <div class="ai-dashboard-container">
+          
+          <!-- CARD 1: Executive AI Summary & Detection Status -->
+          <div class="ai-card">
+            <div class="ai-card-header">
+              <div class="ai-card-title-group">
+                <span class="ai-card-icon">📊</span>
+                <h4 class="ai-card-title">1. Detection Summary & Verification</h4>
+              </div>
+              <span class="badge badge-test" id="ai-backend-status-badge">AI Analysis Verified</span>
+            </div>
+            <div class="review-metrics-grid">
+              <div class="review-metric-card">
+                <span class="review-metric-label">Detected Material</span>
+                <span class="review-metric-val" id="review-material">—</span>
+              </div>
+              <div class="review-metric-card">
+                <span class="review-metric-label">Visible Condition</span>
+                <span class="review-metric-val" id="review-condition">—</span>
+              </div>
+              <div class="review-metric-card">
+                <span class="review-metric-label">AI Confidence</span>
+                <span class="review-metric-val" id="review-confidence">—</span>
+              </div>
+              <div class="review-metric-card">
+                <span class="review-metric-label">Stated Quantity</span>
+                <span class="review-metric-val" id="review-quantity">—</span>
+              </div>
+              <div class="review-metric-card">
+                <span class="review-metric-label">Selected Zone</span>
+                <span class="review-metric-val" id="review-locality">—</span>
+              </div>
+              <div class="review-metric-card hidden" id="review-address-row">
+                <span class="review-metric-label">Pinned Address</span>
+                <span class="review-metric-val" id="review-address">—</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD 2: Material & Resin Specifications -->
+          <div class="ai-card">
+            <div class="ai-card-header">
+              <div class="ai-card-title-group">
+                <span class="ai-card-icon">🧪</span>
+                <h4 class="ai-card-title">2. Material & Resin Specifications</h4>
+              </div>
+              <span class="badge badge-secure">Resin Code #1</span>
+            </div>
+            <div class="ai-props-grid">
+              <div class="ai-prop-box">
+                <span class="ai-prop-label">Resin Code</span>
+                <span class="ai-prop-val" id="ai-resin-code">#1 PET (Polyethylene Terephthalate)</span>
+              </div>
+              <div class="ai-prop-box">
+                <span class="ai-prop-label">Transparency & Color</span>
+                <span class="ai-prop-val" id="ai-transparency">Transparent / Clear</span>
+              </div>
+              <div class="ai-prop-box">
+                <span class="ai-prop-label">Container Form</span>
+                <span class="ai-prop-val" id="ai-bottle-type">Rigid Beverage Bottles</span>
+              </div>
+              <div class="ai-prop-box">
+                <span class="ai-prop-label">Caps & Labels Presence</span>
+                <span class="ai-prop-val" id="ai-labels-caps">Mixed / Partially Removed</span>
+              </div>
+              <div class="ai-prop-box">
+                <span class="ai-prop-label">Estimated Unit Weight</span>
+                <span class="ai-prop-val" id="ai-unit-weight">~20g - 28g / bottle</span>
+              </div>
+              <div class="ai-prop-box">
+                <span class="ai-prop-label">Sorting Grade</span>
+                <span class="ai-prop-val" id="ai-commercial-grade">Grade A Post-Consumer</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD 3: Recyclability & Circular Economy Potential -->
+          <div class="ai-card">
+            <div class="ai-card-header">
+              <div class="ai-card-title-group">
+                <span class="ai-card-icon">♻️</span>
+                <h4 class="ai-card-title">3. Circularity & Recyclability Assessment</h4>
+              </div>
+              <span class="badge badge-honest">Mechanical Recycling</span>
+            </div>
+            <div class="ai-props-grid">
+              <div class="ai-prop-box">
+                <span class="ai-prop-label">Circularity Index</span>
+                <span class="ai-prop-val text-emerald" id="ai-circularity-index">High (88/100)</span>
+              </div>
+              <div class="ai-prop-box">
+                <span class="ai-prop-label">Flaking Viability</span>
+                <span class="ai-prop-val" id="ai-flaking-viability">Direct Hot-Wash Flaking Ready</span>
+              </div>
+              <div class="ai-prop-box">
+                <span class="ai-prop-label">rPET Potential</span>
+                <span class="ai-prop-val" id="ai-rpet-potential">Food-Contact & Fiber Grade rPET</span>
+              </div>
+              <div class="ai-prop-box">
+                <span class="ai-prop-label">Decontamination Protocol</span>
+                <span class="ai-prop-val" id="ai-washing-required">Standard Alkaline Wash</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD 4: Computer Vision Inspection & Contamination Breakdown -->
+          <div class="ai-card ai-deep-inspection-card" id="ai-deep-inspection-card">
+            <div class="inspection-header">
+              <div class="inspection-title-group">
+                <span class="inspection-icon">🔬</span>
+                <h4 class="inspection-title">4. Computer Vision Inspection Breakdown</h4>
+              </div>
+              <span class="badge badge-test" id="ai-rough-estimate-badge">Rough Visual Estimate</span>
+            </div>
+            
+            <div class="inspection-metrics-grid">
+              <div class="inspection-metric-box">
+                <span class="inspection-metric-label">PET Identification</span>
+                <span class="inspection-metric-val" id="ai-pet-detected-badge">Analyzing...</span>
+              </div>
+              <div class="inspection-metric-box">
+                <span class="inspection-metric-label">Estimated Bottle Count</span>
+                <span class="inspection-metric-val" id="ai-bottle-count-val">—</span>
+              </div>
+            </div>
+
+            <!-- Contamination Indicators Tags -->
+            <div class="inspection-tags-section">
+              <span class="inspection-section-label">Contamination Indicators:</span>
+              <div class="inspection-tags-wrap" id="ai-contamination-tags">
+                <span class="tag-empty">None detected</span>
+              </div>
+            </div>
+
+            <!-- Image Quality Limitations Tags -->
+            <div class="inspection-tags-section">
+              <span class="inspection-section-label">Visual Limitations:</span>
+              <div class="inspection-tags-wrap" id="ai-limitations-tags">
+                <span class="tag-empty">Standard resolution</span>
+              </div>
+            </div>
+
+            <!-- AI Warnings Box -->
+            <div class="inspection-warnings-box hidden" id="ai-warnings-box">
+              <div class="inspection-warnings-header">⚠️ AI Inspection Notes & Warnings</div>
+              <ul class="inspection-warnings-list" id="ai-warnings-list">
+                <!-- Dynamically populated -->
+              </ul>
+            </div>
+          </div>
+
+          <!-- CARD 5: Recommended Next Steps for Maximum Value -->
+          <div class="ai-card">
+            <div class="ai-card-header">
+              <div class="ai-card-title-group">
+                <span class="ai-card-icon">💡</span>
+                <h4 class="ai-card-title">5. Circular Value Optimization Next Steps</h4>
+              </div>
+              <span class="badge badge-secure">Actionable Advice</span>
+            </div>
+            <ul class="ai-recommendations-list" id="ai-recommendations-list">
+              <li><strong>Rinse & Flatten:</strong> Emptying liquids and removing PP caps increases recycler match compatibility by up to 25%.</li>
+              <li><strong>Price Benchmark:</strong> Run the scrap price estimator after creating your listing to discover current municipality scrap benchmarks.</li>
+              <li><strong>Negotiate Terms:</strong> Submit formal price proposals directly to verified processors in your region.</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="review-confirmation-box">
+          <div class="review-confirm">
+            <label class="review-confirm-label" for="confirm-material">Confirm or correct material:</label>
+            <select id="confirm-material" class="form-input form-select">
+              <option value="PET Plastic">PET Plastic (Supported)</option>
+              <option value="Other / Non-PET">Other / Non-PET Material (Unsupported)</option>
+            </select>
+            <span class="form-hint">EcoCycle AI currently supports PET plastic beverage bottles only.</span>
+          </div>
+
+          <div class="review-confirm" style="margin-top: 1rem;">
+            <label class="review-confirm-label" for="confirm-condition">Confirm or correct condition:</label>
+            <select id="confirm-condition" class="form-input form-select">
+              <option value="Clean">Clean — sorted, rinsed, labels removed</option>
+              <option value="Mixed/Labels on">Mixed / Labels on — unsorted or labels present</option>
+              <option value="Contaminated/Dirty">Contaminated / Dirty — unwashed, food residue</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="review-actions">
+          <button class="btn btn-primary btn-lg btn-full" id="confirm-btn">
+            <span class="btn-icon" id="confirm-icon">✓</span>
+            <span id="confirm-text">Confirm & Create Listing</span>
+            <span class="spinner" id="confirm-spinner"></span>
+          </button>
+          <button class="btn btn-secondary" id="reset-form-btn">
+            ← Start Over
+          </button>
+        </div>
+      </div>
+
+      <!-- ===== LISTING SUCCESS PANEL ===== -->
+      <div class="success-panel hidden" id="success-panel">
+        <div class="success-icon-badge">✓</div>
+        <h3 class="success-title">Listing Created Successfully</h3>
+        <p class="success-sub">Your PET recovery batch is registered and ready for market valuation and partner matching.</p>
+        
+        <div class="success-details" id="success-details"></div>
+
+        <div class="success-action-cluster">
+          <button class="btn btn-primary btn-lg btn-full" id="find-buyers-btn">
+            <span class="btn-icon" id="find-buyers-icon">🔍</span>
+            <span id="find-buyers-text">Find Matching Buyers</span>
+            <span class="spinner" id="find-buyers-spinner"></span>
+          </button>
+          <button class="btn btn-secondary btn-full" id="btn-estimate-price">
+            <span class="btn-icon">💰</span>
+            <span id="btn-estimate-price-text">Estimate PET Scrap Value</span>
+            <span class="spinner hidden" id="price-spinner"></span>
+          </button>
+          <button class="btn btn-secondary btn-full" id="btn-goto-payment">
+            <span class="btn-icon">💳</span>
+            <span>Demo Facilitation Fee (Razorpay)</span>
+          </button>
+          <button class="btn btn-secondary btn-full" id="btn-goto-ecoproof">
+            <span class="btn-icon">🛡️</span>
+            <span>EcoProof Loop Traceability</span>
+          </button>
+          <button class="btn btn-outline" id="new-listing-btn">
+            <span class="btn-icon">➕</span>
+            Submit Another Listing
+          </button>
+        </div>
+      </div>
+
+      <!-- Anchor for Navbar Price Link -->
+      <div id="price-panel-anchor"></div>
+
+      <!-- ===== PET PRICE INTELLIGENCE PANEL ===== -->
+      <div class="price-panel hidden" id="price-panel">
+        <div class="panel-header">
+          <div>
+            <h3 class="panel-title">💰 PET Price Intelligence</h3>
+            <p class="panel-subtitle">Location-aware scrap valuation driven by verified recycler quotes, regional trade benchmarks, and grade sorting factors.</p>
+          </div>
+          <div class="price-header-actions">
+            <span class="badge badge-test" id="price-transparency-badge">IMPORTED DATA</span>
+            <button type="button" class="btn btn-outline btn-sm" id="btn-refresh-price" title="Refresh Live Market Quotes">
+              <span id="price-refresh-icon">🔄</span> <span id="price-refresh-text">Refresh Live Rate</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Interactive Location & Quality Controls -->
+        <div class="price-controls-bar">
+          <div class="price-control-group">
+            <label for="price-hub-select" class="control-label">Recycling Hub / City</label>
+            <select id="price-hub-select" class="form-select form-select-sm">
+              <option value="">Use Listing Location</option>
+              <option value="Delhi NCR">Delhi NCR (Mayapuri / Okhla)</option>
+              <option value="Mumbai">Mumbai (Navi Mumbai / Dharavi)</option>
+              <option value="Bengaluru">Bengaluru (Peenya Hub)</option>
+              <option value="Chennai">Chennai (Guindy Recovery)</option>
+              <option value="Ahmedabad">Ahmedabad (Vatva Polymer Hub)</option>
+              <option value="Pune">Pune (Bhosari Secondary)</option>
+              <option value="Kolkata">Kolkata (Howrah Consolidation)</option>
+              <option value="Hyderabad">Hyderabad (Balanagar Guild)</option>
+              <option value="Central City">Central City (Urban Benchmark)</option>
+              <option value="Industrial East">Industrial East (Ludhiana Hub)</option>
+              <option value="North Sector">North Sector (Mohali GreenPlast)</option>
+              <option value="South Hub">South Hub (Patiala Polymer)</option>
+              <option value="custom">Enter Custom PIN / City…</option>
+            </select>
+          </div>
+
+          <div class="price-control-group hidden" id="custom-pincode-group">
+            <label for="price-custom-input" class="control-label">PIN Code or City</label>
+            <input type="text" id="price-custom-input" class="form-input form-input-sm" placeholder="e.g. 110020 or Ludhiana" />
+          </div>
+
+          <div class="price-control-group">
+            <label for="price-grade-select" class="control-label">Material Grade & Quality</label>
+            <select id="price-grade-select" class="form-select form-select-sm">
+              <option value="CLEAR_BOTTLES">Clean Clear Bottles (Baseline)</option>
+              <option value="MIXED_LABELS_ON">Mixed / Labels On (-20% sorting deduction)</option>
+              <option value="BALED_COMPACTED">Baled & Compacted (+15% consolidation premium)</option>
+              <option value="COLORED_GREEN">Green / Amber Colored (-25% color penalty)</option>
+              <option value="CONTAMINATED_DIRTY">Dirty / Contaminated (-40% wash deduction)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Fallback Notice Banner -->
+        <div class="price-fallback-banner hidden" id="price-fallback-banner">
+          <span class="banner-icon">ℹ️</span>
+          <div class="banner-content">
+            <strong>Benchmark Fallback Active:</strong>
+            <span id="price-fallback-text">City-specific scrap data is unavailable. Showing regional/national benchmark.</span>
+          </div>
+        </div>
+
+        <!-- Price Active Result Card -->
+        <div class="price-card" id="price-card">
+          <div class="price-metrics-grid">
+            <div class="price-metric-box">
+              <span class="metric-label">Benchmark Price / kg</span>
+              <span class="metric-value" id="price-per-kg-val">₹14.50 – ₹18.00</span>
+              <span class="metric-sub" id="price-tier-sub">Local scrap benchmark</span>
+            </div>
+            <div class="price-metric-box highlight-metric">
+              <span class="metric-label">Estimated Total Batch Value</span>
+              <span class="metric-value highlight-value" id="price-total-val">₹362.50 – ₹450.00</span>
+              <span class="metric-sub" id="price-qty-sub">For batch</span>
+            </div>
+          </div>
+
+          <div class="price-calc-bar" id="price-calc-bar">
+            <strong>Calculation: </strong><span id="price-calc-explanation">—</span>
+          </div>
+
+          <div class="price-details-list">
+            <div class="price-detail-row">
+              <span class="detail-name">Material Form & Grade</span>
+              <span class="detail-data" id="price-grade-data">—</span>
+            </div>
+            <div class="price-detail-row">
+              <span class="detail-name">Geographic Coverage</span>
+              <span class="detail-data" id="price-coverage-data">—</span>
+            </div>
+            <div class="price-detail-row">
+              <span class="detail-name">Data Freshness</span>
+              <span class="detail-data" id="price-freshness-data">—</span>
+            </div>
+            <div class="price-detail-row">
+              <span class="detail-name">Source Attribution</span>
+              <span class="detail-data" id="price-source-data">—</span>
+            </div>
+            <div class="price-detail-row">
+              <span class="detail-name">Data Tier & Type</span>
+              <span class="detail-data" id="price-source-type-data">—</span>
+            </div>
+            <div class="price-detail-row">
+              <span class="detail-name">Quality Adjustment</span>
+              <span class="detail-data" id="price-adjustment-data">—</span>
+            </div>
+            <div class="price-detail-row">
+              <span class="detail-name">Observation & Retrieval</span>
+              <span class="detail-data" id="price-timestamp-data">—</span>
+            </div>
+          </div>
+
+          <!-- Warnings & Guidance list -->
+          <div class="price-warnings-box" id="price-warnings-box">
+            <div class="warnings-header">Market Observations & Disclaimers</div>
+            <ul class="warnings-list" id="price-warnings-list">
+              <!-- Dynamically populated -->
+            </ul>
+          </div>
+        </div>
+
+        <!-- Price Unavailable Card -->
+        <div class="price-unavailable-card hidden" id="price-unavailable-card">
+          <div class="no-match-icon">📊</div>
+          <h4>No Comparable PET Price Data Available</h4>
+          <p id="price-unavailable-msg">No verified scrap price benchmarks are currently available for this locality and material form.</p>
+          <span class="form-hint">Pricing varies by municipality logistics, aggregator density, and bale quality.</span>
+        </div>
+
+        <p class="price-legal-disclaimer">
+          ⚠️ <strong>Market Notice:</strong> This is an indicative market estimate, not a guaranteed buyer offer or binding quote. Actual market prices depend on sorting, contamination, bottle color, quantity, transport, and the recycler's terms.
+        </p>
+      </div>
+
+      <!-- Anchor for Navbar Match Link -->
+      <div id="match-panel-anchor"></div>
+
+      <!-- ===== RECYCLER MATCHING PANEL ===== -->
+      <div class="match-panel hidden" id="match-panel">
+        <div class="panel-header">
+          <div>
+            <h3 class="panel-title">🔍 Matching Recycling Partners</h3>
+            <p class="panel-subtitle">Deterministic compatibility ranking based on accepted volume, location, and demand.</p>
+          </div>
+        </div>
+
+        <p class="match-subtitle" id="match-message"></p>
+
+        <div class="buyer-cards" id="buyer-cards">
+          <!-- Buyer cards populated by JS -->
+        </div>
+
+        <div class="no-match hidden" id="no-match">
+          <div class="no-match-icon">🔎</div>
+          <p>No compatible recycling partners found for your listing. Try adjusting your quantity, zone, or condition.</p>
+        </div>
+
+        <p class="match-disclaimer">⚠️ All buyer profiles are fictional demo data. Scores are heuristic ranking values — not probabilities of successful recycling.</p>
+
+        <button class="btn btn-secondary" id="match-new-listing-btn">
+          <span class="btn-icon">➕</span>
+          Submit Another Listing
+        </button>
+      </div>
+
+      <!-- Anchor for Navbar Payment Link -->
+      <div id="payment-panel-anchor"></div>
+
+      <!-- ===== RAZORPAY TEST PAYMENT ===== -->
+      <div class="payment-panel hidden" id="payment-panel">
+        <div class="panel-header">
+          <div>
+            <h3 class="panel-title">💳 Demo Facilitation Fee (Razorpay Test Mode)</h3>
+            <p class="panel-subtitle">Demonstrate a secure simulated transaction for your PET bottle recovery batch.</p>
+          </div>
+          <span class="badge badge-test" id="razorpay-mode-badge">Razorpay Test Mode</span>
+        </div>
+
+        <!-- Fallback Banner -->
+        <div class="payment-fallback-banner hidden" id="payment-fallback-banner">
+          <div class="banner-icon" id="payment-banner-icon">ℹ️</div>
+          <div class="banner-content">
+            <strong id="payment-banner-title">Razorpay Test Mode Offline</strong>
+            <p id="payment-fallback-msg">Add <code>RAZORPAY_KEY_ID</code> and <code>RAZORPAY_KEY_SECRET</code> to your <code>.env</code> file to enable interactive test checkout.</p>
+          </div>
+          <button type="button" class="btn btn-secondary btn-sm" id="btn-recheck-razorpay" style="margin-left: auto;">
+            <span>Recheck .env</span>
+          </button>
+        </div>
+
+        <!-- Prerequisite Guidance Card (shown when no listing is staged) -->
+        <div class="payment-prereq-card hidden" id="payment-prereq-card">
+          <div class="prereq-icon">📋</div>
+          <h4>Listing & Recycler Required</h4>
+          <p id="payment-prereq-msg">To simulate a Razorpay facilitation fee deposit, please first analyze/create a PET listing and select a recycling partner.</p>
+          <div class="prereq-steps">
+            <div class="prereq-step"><span class="step-num">1</span> Submit or verify your PET bottle waste batch.</div>
+            <div class="prereq-step"><span class="step-num">2</span> Match with an authorized local recycler or negotiate terms.</div>
+            <div class="prereq-step"><span class="step-num">3</span> Reserve pickup with the ₹50 demo facilitation fee.</div>
+          </div>
+          <a href="#submit-waste" class="btn btn-primary" id="btn-prereq-start">
+            <span class="btn-icon">📦</span>
+            <span>Create PET Listing</span>
+          </a>
+        </div>
+
+        <div class="payment-card" id="payment-card">
+          <div class="payment-card-body">
+            <div class="payment-item-row">
+              <span class="payment-label">Listing Ref</span>
+              <span class="payment-value" id="pay-listing-id">—</span>
+            </div>
+            <div class="payment-item-row">
+              <span class="payment-label">PET Material</span>
+              <span class="payment-value" id="pay-material">PET Plastic</span>
+            </div>
+            <div class="payment-item-row">
+              <span class="payment-label">Batch Quantity</span>
+              <span class="payment-value" id="pay-quantity">—</span>
+            </div>
+            <div class="payment-item-row">
+              <span class="payment-label">Selected Recycler</span>
+              <span class="payment-value" id="pay-buyer">—</span>
+            </div>
+            <div class="payment-divider"></div>
+            <div class="payment-item-row payment-total-row">
+              <span class="payment-label">Demo Facilitation Fee</span>
+              <span class="payment-price">₹50.00 <small class="text-muted">(Test Mode)</small></span>
+            </div>
+            <p class="payment-disclaimer">
+              🔒 Standard Checkout in Test Mode. Compatibility score is a matching metric, not price or quote. No real card will be charged.
+            </p>
+          </div>
+
+          <div class="payment-actions">
+            <button class="btn btn-primary btn-lg btn-full" id="btn-pay-razorpay">
+              <span class="btn-icon">💳</span>
+              <span id="btn-pay-text">Pay ₹50.00 via Razorpay (Test Mode)</span>
+              <span class="spinner hidden" id="pay-spinner"></span>
+            </button>
+            <div class="payment-error hidden" id="payment-error"></div>
+          </div>
+        </div>
+
+        <!-- Payment Success Card -->
+        <div class="payment-success-card hidden" id="payment-success-card">
+          <div class="success-header">
+            <span class="success-badge">✅ Payment Verified</span>
+            <span class="success-amount">₹50.00</span>
+          </div>
+          <div class="success-grid">
+            <div class="success-field">
+              <span class="field-label">Payment ID:</span>
+              <code class="field-code" id="success-payment-id">—</code>
+            </div>
+            <div class="success-field">
+              <span class="field-label">Order ID:</span>
+              <code class="field-code" id="success-order-id">—</code>
+            </div>
+            <div class="success-field">
+              <span class="field-label">Signature Verification:</span>
+              <span class="field-val">HMAC-SHA256 (Constant-Time Verified)</span>
+            </div>
+            <div class="success-field">
+              <span class="field-label">Timestamp:</span>
+              <span class="field-val" id="success-timestamp">—</span>
+            </div>
+          </div>
+          <p class="security-note">
+            🛡️ Server-verified transaction using constant-time cryptographic equality check. Financial state is safely recorded.
+          </p>
+        </div>
+      </div>
+
+      <!-- ===== RECOVERY LIFECYCLE TRACKER ===== -->
+      <div class="recovery-tracker-panel hidden" id="recovery-tracker-panel">
+        <div class="panel-header">
+          <div>
+            <h3 class="panel-title">🌱 Material Recovery Lifecycle</h3>
+            <p class="panel-subtitle">Physical recycling requires verified collection, contamination inspection, and processing.</p>
+          </div>
+          <span class="badge badge-honest">Honest Physical Tracking</span>
+        </div>
+
+        <!-- Stepper -->
+        <div class="recovery-stepper" id="recovery-stepper">
+          <div class="step-item step-completed" id="step-listed">
+            <div class="step-bubble">1</div>
+            <div class="step-label">Listed</div>
+            <div class="step-sub">PET registered</div>
+          </div>
+          <div class="step-connector" id="conn-1"></div>
+          <div class="step-item" id="step-matched">
+            <div class="step-bubble">2</div>
+            <div class="step-label">Matched</div>
+            <div class="step-sub">Recycler chosen</div>
+          </div>
+          <div class="step-connector" id="conn-2"></div>
+          <div class="step-item" id="step-collection">
+            <div class="step-bubble">3</div>
+            <div class="step-label">Collection</div>
+            <div class="step-sub">Physical pickup</div>
+          </div>
+          <div class="step-connector" id="conn-3"></div>
+          <div class="step-item" id="step-recovery">
+            <div class="step-bubble">4</div>
+            <div class="step-label">Recovered</div>
+            <div class="step-sub">Weighed & accepted</div>
+          </div>
+        </div>
+
+        <div class="recovery-actions" id="recovery-actions">
+          <button type="button" class="btn btn-secondary btn-sm" id="btn-advance-collection">
+            🚚 Confirm Physical Collection (Pickup)
+          </button>
+          <button type="button" class="btn btn-secondary btn-sm" id="btn-advance-recovery" disabled>
+            🏭 Confirm Physical Recovery (Weighed & Processed)
+          </button>
+        </div>
+
+        <div class="recovery-audit-log" id="recovery-audit-log">
+          <div class="audit-header">Physical Recovery Audit Log (Demo Tracked)</div>
+          <ul class="audit-list" id="audit-list">
+            <!-- Populated dynamically -->
+          </ul>
+        </div>
+      </div>
+
+      <!-- Anchor for Navbar EcoProof Link -->
+      <div id="ecoproof-anchor"></div>
+
+      <!-- ===== ECOPROOF LOOP TRACEABILITY PANEL ===== -->
+      <div class="ecoproof-panel hidden" id="ecoproof-panel">
+        <div class="panel-header">
+          <div>
+            <h3 class="panel-title">🛡️ EcoProof Loop — Verify the Journey</h3>
+            <p class="panel-subtitle">Cryptographically chained audit events, milestone evidence tracking, weight discrepancy checks, and public QR traceability.</p>
+          </div>
+          <span class="badge badge-ecoproof">EcoProof Traceable</span>
+        </div>
+
+        <!-- Batch Initialization Card -->
+        <div class="ecoproof-init-card" id="ecoproof-init-card">
+          <p>Initialize an immutable EcoProof traceability batch for this PET listing to record verified evidence, weigh-in tickets, and generate a tamper-evident QR code.</p>
+          <button type="button" class="btn btn-primary" id="btn-init-batch">
+            <span class="btn-icon">📦</span>
+            Initiate EcoProof Traceability Batch
+          </button>
+        </div>
+
+        <!-- Active Batch Card -->
+        <div class="ecoproof-active-card hidden" id="ecoproof-active-card">
+          <!-- Batch Meta Bar -->
+          <div class="batch-meta-bar">
+            <div class="batch-meta-item">
+              <span class="batch-meta-label">Batch Code</span>
+              <span class="batch-meta-val" id="batch-code-val">ECO-PET-2026-XXXX</span>
+            </div>
+            <div class="batch-meta-item">
+              <span class="batch-meta-label">Material & Status</span>
+              <span class="batch-meta-val"><span id="batch-material-val">PET Plastic</span> (<span id="batch-status-val">LISTED</span>)</span>
+            </div>
+            <div class="batch-meta-item">
+              <span class="batch-meta-label">Declared Qty</span>
+              <span class="batch-meta-val" id="batch-qty-val">— kg</span>
+            </div>
+            <div class="batch-meta-item">
+              <span class="batch-meta-label">Audit Chain</span>
+              <span class="badge badge-secure" id="batch-chain-val">🔒 Intact</span>
+            </div>
+          </div>
+
+          <!-- Evidence Completeness & Disclaimer Section -->
+          <div class="ecoproof-score-card">
+            <div class="score-header">
+              <span class="score-title">Evidence Completeness Score</span>
+              <span class="score-num" id="ecoproof-score-num">0%</span>
+            </div>
+            <div class="score-bar-bg">
+              <div class="score-bar-fill" id="ecoproof-score-bar" style="width: 0%;"></div>
+            </div>
+            <p class="ecoproof-score-disclaimer">
+              ⚠️ <strong>Transparency Disclaimer:</strong> This score reflects submitted and reviewed process documentation only. It does not certify that recycled PET pellets or finished products were physically produced without independent chain-of-custody verification.
+            </p>
+          </div>
+
+          <!-- Two-column grid: Milestone Evidence & Weight Tracking -->
+          <div class="ecoproof-grid">
+            <!-- Left: Evidence Milestones -->
+            <div class="ecoproof-milestones-card">
+              <h4>Milestone Evidence (JPEG/PNG/WebP, max 5MB)</h4>
+              <div class="milestones-list" id="milestones-list">
+                <!-- Populated dynamically via JS -->
+              </div>
+
+              <!-- Evidence Upload Form -->
+              <div class="evidence-upload-box">
+                <h5>Upload Milestone Evidence</h5>
+                <form id="evidence-upload-form" class="evidence-form">
+                  <div class="form-row">
+                    <label for="evidence-category-select">Milestone Category:</label>
+                    <select id="evidence-category-select" class="form-control" required>
+                      <option value="PICKUP_PHOTO">1. Pickup Photo (Material at Source)</option>
+                      <option value="COLLECTION_WEIGHT">2. Collection Weight Slip / Scale Ticket</option>
+                      <option value="RECEIVER_CONFIRMATION">3. Recycler Intake Confirmation</option>
+                      <option value="RECEIVING_WEIGHT">4. Recycler Receiving Weight Slip</option>
+                      <option value="PROCESSING_EVIDENCE">5. Processing / Flaking Evidence</option>
+                    </select>
+                  </div>
+                  <div class="form-row">
+                    <label for="evidence-file-input">Select Image File:</label>
+                    <input type="file" id="evidence-file-input" accept="image/jpeg,image/png,image/webp" required>
+                  </div>
+                  <div class="form-row">
+                    <label for="evidence-notes-input">Notes (Optional):</label>
+                    <input type="text" id="evidence-notes-input" placeholder="e.g. Calibrated digital scale reading at North Hub">
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-sm" id="btn-submit-evidence">
+                    <span class="btn-icon">📤</span>
+                    Upload & Hash Record
+                  </button>
+                  <span class="spinner hidden" id="evidence-spinner"></span>
+                </form>
+                <div class="upload-feedback hidden" id="upload-feedback"></div>
+              </div>
+            </div>
+
+            <!-- Right: Weight Tracking & Discrepancy -->
+            <div class="ecoproof-weights-card">
+              <h4>Weight Tracking & Variance</h4>
+              <div class="weights-form-grid">
+                <div class="weight-box">
+                  <label for="input-coll-weight">Collection Weight (kg):</label>
+                  <div class="weight-input-group">
+                    <input type="number" id="input-coll-weight" min="0.1" max="10000" step="0.1" placeholder="e.g. 50.0">
+                    <button type="button" class="btn btn-secondary btn-sm" id="btn-save-coll-weight">Save</button>
+                  </div>
+                </div>
+                <div class="weight-box">
+                  <label for="input-recv-weight">Receiving Weight (kg):</label>
+                  <div class="weight-input-group">
+                    <input type="number" id="input-recv-weight" min="0.1" max="10000" step="0.1" placeholder="e.g. 48.5">
+                    <button type="button" class="btn btn-secondary btn-sm" id="btn-save-recv-weight">Save</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Discrepancy Status Display -->
+              <div class="discrepancy-panel" id="discrepancy-panel">
+                <div class="discrepancy-badge-row">
+                  <span class="field-label">Discrepancy Status:</span>
+                  <span class="badge" id="discrepancy-badge">Pending Measurements</span>
+                </div>
+                <div class="discrepancy-details" id="discrepancy-details">
+                  Enter both collection and receiving weights to automatically compute variance.
+                </div>
+              </div>
+
+              <!-- Public QR Code & Link Card -->
+              <div class="ecoproof-qr-card">
+                <h4>Public QR Traceability</h4>
+                <p class="qr-desc">Public view strips coordinates, payment secrets, and private documents.</p>
+                <div class="qr-display-row">
+                  <div class="qr-code-img-box">
+                    <img id="batch-qr-img" alt="Batch Trace QR Code" src="" class="hidden">
+                    <div id="qr-placeholder" class="qr-placeholder">Generating QR...</div>
+                  </div>
+                  <div class="qr-info-box">
+                    <a id="batch-public-link" href="#" target="_blank" class="public-link">Open Public Trace Page ↗</a>
+                    <button type="button" class="btn btn-secondary btn-sm" id="btn-copy-trace-url">
+                      📋 Copy Trace Link
+                    </button>
+                    <span class="copy-success hidden" id="copy-success-msg">Copied!</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chained Audit Event Timeline -->
+          <div class="ecoproof-timeline-box">
+            <h4>Cryptographic Audit Log (SHA-256 Chained)</h4>
+            <div class="timeline-status-bar">
+              <span id="chain-integrity-status">Verification: Hash chain is valid and un-tampered.</span>
+            </div>
+            <ul class="ecoproof-event-list" id="ecoproof-event-list">
+              <!-- Event items populated dynamically -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-top">
+        <div class="footer-brand-col">
+          <a href="#" class="footer-brand">
+            <svg viewBox="0 0 32 32" fill="none" class="footer-logo-svg">
+              <circle cx="16" cy="16" r="14" stroke="#10b981" stroke-width="2.2" stroke-dasharray="6 3"/>
+              <circle cx="16" cy="16" r="4.5" fill="#34d399"/>
+            </svg>
+            <span class="footer-brand-title">EcoCycle <span class="brand-highlight">AI</span></span>
+          </a>
+          <p class="footer-tagline">Turn Waste Into Value.</p>
+          <p class="footer-mission">
+            A production-minded circular technology platform bridging waste collectors, AI material inspection, transparent price discovery, and cryptographic supply chain custody.
+          </p>
+        </div>
+
+        <div class="footer-nav-col">
+          <div class="footer-col-title">Product</div>
+          <ul class="footer-links">
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#submit-waste">AI Waste Inspection</a></li>
+            <li><a href="#price-panel-anchor">Price Intelligence</a></li>
+            <li><a href="#match-panel-anchor">Recycler Directory</a></li>
+            <li><a href="#ecoproof-anchor">EcoProof Traceability</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-nav-col">
+          <div class="footer-col-title">Technology & Security</div>
+          <ul class="footer-links">
+            <li><span class="footer-item-static">Gemini Vision AI Engine</span></li>
+            <li><span class="footer-item-static">Google Maps Platform</span></li>
+            <li><span class="footer-item-static">Razorpay Test Checkout</span></li>
+            <li><span class="footer-item-static">SHA-256 Chained Ledgers</span></li>
+            <li><span class="footer-item-static">Session Security & CSRF</span></li>
+          </ul>
+        </div>
+
+        <div class="footer-nav-col">
+          <div class="footer-col-title">GRAVITON 2026</div>
+          <p class="footer-text-muted">
+            Built for the GRAVITON 2026 Hackathon. Focused strictly on post-consumer PET plastic beverage bottles.
+          </p>
+          <div class="event-badge">
+            <span class="badge-dot-green"></span>
+            <span>Production Hackathon Build</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-copyright">
+          © 2026 <strong>EcoCycle AI</strong>. All rights reserved. Fictional demo buyers & benchmark data.
+        </div>
+        <div class="footer-disclaimer-note">
+          AI estimates require user verification. Compatibility metrics represent heuristic ranking, not confirmed purchase contracts.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== MODAL 1: NEGOTIATION & COUNTEROFFER SYSTEM ===== -->
+  <div class="modal-backdrop hidden" id="negotiation-modal" role="dialog" aria-modal="true" aria-labelledby="neg-modal-title">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-title-icon">💬</span>
+          <h3 class="modal-title" id="neg-modal-title">Recycler Negotiation & Counteroffers</h3>
+        </div>
+        <button type="button" class="modal-close-btn" id="btn-close-negotiation-modal" aria-label="Close modal">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Negotiation Metadata Bar -->
+        <div class="neg-meta-strip">
+          <div class="neg-meta-cell">
+            <span class="neg-meta-label">Recycler</span>
+            <span class="neg-meta-val" id="neg-buyer-name">—</span>
+          </div>
+          <div class="neg-meta-cell">
+            <span class="neg-meta-label">Listing Ref</span>
+            <span class="neg-meta-val" id="neg-listing-id">—</span>
+          </div>
+          <div class="neg-meta-cell">
+            <span class="neg-meta-label">Batch Volume</span>
+            <span class="neg-meta-val" id="neg-quantity">— kg</span>
+          </div>
+          <div class="neg-meta-cell">
+            <span class="neg-meta-label">Status</span>
+            <span class="badge badge-test" id="neg-status-badge">PENDING</span>
+          </div>
+        </div>
+
+        <!-- Current Active Terms Card -->
+        <div class="neg-active-terms-card">
+          <div class="neg-terms-highlight">
+            <div class="neg-price-box">
+              <span class="neg-price-label">Current Active Offer</span>
+              <div class="neg-price-display">
+                <span class="neg-currency">₹</span>
+                <span class="neg-price-num" id="neg-current-price">0.00</span>
+                <span class="neg-unit">/ kg</span>
+              </div>
+            </div>
+            <div class="neg-total-box">
+              <span class="neg-total-label">Total Material Value</span>
+              <div class="neg-total-display">
+                <span class="neg-currency">₹</span>
+                <span class="neg-total-num" id="neg-total-value">0.00</span>
+              </div>
+            </div>
+          </div>
+          <div class="neg-terms-footer">
+            <span>Proposed by: <strong id="neg-proposer">—</strong></span>
+            <span class="neg-timestamp" id="neg-offer-time">—</span>
+          </div>
+        </div>
+
+        <!-- Offer Revision History Timeline -->
+        <div class="neg-timeline-section">
+          <h4 class="neg-section-title">Offer Revision Timeline (Immutable History)</h4>
+          <div class="neg-timeline-list" id="neg-offers-timeline">
+            <!-- Dynamically populated via JS -->
+          </div>
+        </div>
+
+        <!-- Counteroffer Input Form -->
+        <div class="neg-counter-section" id="neg-counter-section">
+          <h4 class="neg-section-title">Submit Counteroffer</h4>
+          <form id="neg-counter-form" class="neg-counter-form">
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label for="neg-counter-price" class="form-label">
+                  <span>Proposed Rate (₹/kg)</span>
+                  <span class="label-badge">Required</span>
+                </label>
+                <div class="input-with-affix">
+                  <span class="input-prefix">₹</span>
+                  <input type="number" id="neg-counter-price" class="form-input" min="1" max="200" step="0.25" placeholder="e.g. 17.50" required>
+                  <span class="input-suffix">/ kg</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="neg-counter-message" class="form-label">Optional Message / Terms</label>
+                <input type="text" id="neg-counter-message" class="form-input" placeholder="e.g. Clean bottles packed in bags, available this week">
+              </div>
+            </div>
+            <div class="neg-form-actions">
+              <button type="submit" class="btn btn-secondary btn-sm" id="btn-submit-counter">
+                <span class="btn-icon">💬</span>
+                Send Counteroffer
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Negotiation Terminal Action Buttons -->
+        <div class="neg-actions-cluster">
+          <button type="button" class="btn btn-primary" id="btn-accept-offer">
+            <span class="btn-icon">✅</span>
+            Accept Offer & Finalize
+          </button>
+          <button type="button" class="btn btn-outline" id="btn-reject-offer">
+            <span class="btn-icon">❌</span>
+            Reject Offer
+          </button>
+          <button type="button" class="btn btn-outline" id="btn-withdraw-offer">
+            <span class="btn-icon">↩</span>
+            Withdraw Negotiation
+          </button>
+          <button type="button" class="btn btn-primary hidden" id="btn-view-receipt-from-neg">
+            <span class="btn-icon">📄</span>
+            View Digital Waste Transaction Receipt
+          </button>
+        </div>
+
+        <p class="neg-legal-notice">
+          ⚖️ <strong>Transaction Governance:</strong> Offers and counteroffers maintain an immutable audit trail. Acceptance finalizes terms and automatically mints an official SHA-256 tamper-evident Digital Waste Transaction Receipt.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MODAL 2: DIGITAL WASTE TRANSACTION RECEIPT ===== -->
+  <div class="modal-backdrop hidden" id="receipt-modal" role="dialog" aria-modal="true" aria-labelledby="rcp-modal-title">
+    <div class="modal-dialog modal-receipt">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-title-icon">📄</span>
+          <h3 class="modal-title" id="rcp-modal-title">Digital Waste Transaction Receipt</h3>
+        </div>
+        <button type="button" class="modal-close-btn" id="btn-close-receipt-modal" aria-label="Close modal">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Printable Certificate Area -->
+        <div class="receipt-printable-content" id="receipt-printable-content">
+          <div class="receipt-watermark">ECOCYCLE</div>
+
+          <!-- Official Header -->
+          <div class="receipt-doc-header">
+            <div class="receipt-brand-box">
+              <div class="receipt-brand-title">EcoCycle <span class="brand-highlight">AI</span></div>
+              <div class="receipt-brand-sub">Circular Economy Recovery Platform · GRAVITON 2026</div>
+            </div>
+            <div class="receipt-status-stamp" id="rcp-status-stamp">VERIFIED TRANSACTION</div>
+          </div>
+
+          <div class="receipt-id-strip">
+            <div class="receipt-id-cell">
+              <span class="rcp-id-label">Receipt Number</span>
+              <span class="rcp-id-val" id="rcp-number">RCP-2026-XXXX-XXXX</span>
+            </div>
+            <div class="receipt-id-cell">
+              <span class="rcp-id-label">Transaction ID</span>
+              <span class="rcp-id-val" id="rcp-txn-id">TXN-PET-2026-XXXX</span>
+            </div>
+            <div class="receipt-id-cell">
+              <span class="rcp-id-label">Execution Date</span>
+              <span class="rcp-id-val" id="rcp-date">—</span>
+            </div>
+          </div>
+
+          <!-- Parties Grid -->
+          <div class="receipt-parties-grid">
+            <div class="receipt-party-card">
+              <div class="rcp-party-role">WASTE GENERATOR / SELLER</div>
+              <div class="rcp-party-name" id="rcp-seller-name">Verified Generator</div>
+              <div class="rcp-party-detail">Account: <span id="rcp-seller-email">—</span></div>
+              <div class="rcp-party-detail">Pickup Zone: <span id="rcp-seller-zone">—</span></div>
+            </div>
+            <div class="receipt-party-card">
+              <div class="rcp-party-role">CERTIFIED RECYCLING BUYER</div>
+              <div class="rcp-party-name" id="rcp-buyer-name">—</div>
+              <div class="rcp-party-detail">Facility: <span id="rcp-buyer-facility">—</span></div>
+              <div class="rcp-party-detail">Capacity: <span id="rcp-buyer-capacity">Verified Capacity</span></div>
+            </div>
+          </div>
+
+          <!-- Commercial Specifications Table -->
+          <table class="receipt-table">
+            <thead>
+              <tr>
+                <th>Material & Specification</th>
+                <th>Condition</th>
+                <th>Volume</th>
+                <th>Agreed Rate</th>
+                <th class="text-right">Total Material Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong>Post-Consumer PET Plastic</strong><br>
+                  <small class="text-muted">Rigid beverage bottle scrap</small>
+                </td>
+                <td id="rcp-condition">Clean</td>
+                <td><strong id="rcp-quantity">0</strong> kg</td>
+                <td>₹<span id="rcp-unit-price">0.00</span> / kg</td>
+                <td class="text-right highlight-cell">₹<span id="rcp-total-value">0.00</span></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- Transport Feasibility & Logistics Terms -->
+          <div class="receipt-logistics-box">
+            <div class="rcp-logistics-title">Logistics & Custody Specifications</div>
+            <div class="rcp-logistics-grid">
+              <div><strong>Pickup Location:</strong> <span id="rcp-transport-address">—</span></div>
+              <div><strong>Facility Distance:</strong> <span id="rcp-transport-distance">—</span> km (<span id="rcp-distance-type">Straight-line estimate</span>)</div>
+              <div><strong>Estimated Freight:</strong> ₹<span id="rcp-transport-cost">—</span></div>
+              <div><strong>Recovery Batch:</strong> <span id="rcp-batch-code">—</span></div>
+            </div>
+          </div>
+
+          <!-- Cryptographic Tamper-Evident SHA-256 Stamp -->
+          <div class="receipt-crypto-card">
+            <div class="crypto-header">
+              <span class="crypto-badge">🔒 SHA-256 Tamper-Evident Digest</span>
+              <span class="crypto-verified" id="rcp-digest-status">Verified Canonical Hash</span>
+            </div>
+            <code class="crypto-hash-code" id="rcp-digest">----------------------------------------------------------------</code>
+            <p class="crypto-hint">
+              This cryptographic digest is computed over the canonical transaction terms. Any post-issuance alteration of quantity, price, buyer, or date immediately invalidates this digest.
+            </p>
+          </div>
+
+          <!-- Mandatory Transparency Disclaimer -->
+          <p class="receipt-disclaimer-text">
+            ⚠️ <strong>Demonstration Waste Transaction Receipt:</strong> EcoCycle AI records transaction terms and digital signatures for auditable custody. Physical recycling requires verified delivery, scale weigh-in, and processing through the EcoProof Loop.
+          </p>
+        </div>
+
+        <!-- Receipt Actions -->
+        <div class="receipt-actions-footer">
+          <button type="button" class="btn btn-primary" id="btn-print-receipt">
+            <span class="btn-icon">🖨️</span>
+            Print / Save PDF
+          </button>
+          <a href="#" target="_blank" class="btn btn-secondary" id="btn-verify-receipt-link">
+            <span class="btn-icon">🔗</span>
+            Verify Receipt Online
+          </a>
+          <button type="button" class="btn btn-outline" id="btn-dismiss-receipt">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MODAL 3: IN-PLATFORM BUYER-SELLER CHAT ===== -->
+  <div class="modal-backdrop hidden" id="chat-modal" role="dialog" aria-modal="true" aria-labelledby="chat-modal-title">
+    <div class="modal-dialog modal-chat">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <span class="modal-title-icon">💬</span>
+          <div>
+            <h3 class="modal-title" id="chat-modal-title">Trade Messenger & Offer Sync</h3>
+            <span class="modal-title-sub" id="chat-partner-sub">Real-time buyer & seller direct communication</span>
+          </div>
+        </div>
+        <button type="button" class="modal-close-btn" id="btn-close-chat-modal" aria-label="Close chat">✕</button>
+      </div>
+
+      <div class="modal-body chat-modal-body">
+        <div class="chat-layout-split">
+          <!-- Left: Conversation Threads List -->
+          <div class="chat-sidebar">
+            <div class="chat-sidebar-header">
+              <input type="text" id="chat-search-input" class="form-input form-input-sm" placeholder="Filter conversations...">
+            </div>
+            <div class="chat-threads-list" id="chat-threads-list">
+              <div class="chat-empty-threads">Loading conversations...</div>
+            </div>
+          </div>
+
+          <!-- Right: Active Chat Stream & Negotiation Header -->
+          <div class="chat-main-stream-wrap">
+            <!-- Active Thread Bar -->
+            <div class="chat-active-bar" id="chat-active-bar">
+              <div class="chat-active-info">
+                <div class="chat-active-partner">
+                  <span id="chat-active-name">No active conversation</span>
+                  <span class="badge badge-sm badge-role" id="chat-active-role">SELLER</span>
+                </div>
+                <div class="chat-active-listing-tag">
+                  <span>Batch: <strong id="chat-active-listing-code">—</strong></span>
+                  <span class="dot-separator">•</span>
+                  <span id="chat-active-listing-weight">— kg</span>
+                </div>
+              </div>
+              <div class="chat-active-actions">
+                <button type="button" class="btn btn-outline btn-sm" id="chat-btn-open-neg">
+                  <span>🤝 View Offers</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Messages Stream -->
+            <div class="chat-messages-container" id="chat-messages-container">
+              <div class="chat-messages-empty" id="chat-empty-message">
+                <div class="empty-icon">💬</div>
+                <p>Select a conversation from the left to start messaging, or initiate a chat from a listing card.</p>
+              </div>
+            </div>
+
+            <!-- Input Form -->
+            <form class="chat-input-bar" id="chat-send-form">
+              <input 
+                type="text" 
+                id="chat-msg-input" 
+                class="form-input" 
+                placeholder="Type your message, inquiry, or logistics question..." 
+                autocomplete="off"
+                disabled
+              >
+              <button type="submit" class="btn btn-primary" id="btn-send-message" disabled>
+                <span class="btn-icon">➤</span>
+                <span>Send</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
